@@ -1,0 +1,1 @@
+create table course(course_id varchar(30) primary key, name varchar(30), units integer, description varchar(255), department_id varchar(30));

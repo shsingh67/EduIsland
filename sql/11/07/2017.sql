@@ -1,0 +1,1 @@
+create table user(user_id varchar(30) primary key, password varchar(30), date_joined datetime)
