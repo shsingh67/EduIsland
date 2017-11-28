@@ -35,4 +35,19 @@ public class Department {
 
     public String getBuildingName() { return buildingName; }
     public void setBuildingName(String buildingName) { this.buildingName = buildingName; }
+
+    // General:
+
+    @Override
+    public String toString()
+    {
+        return "<department> "
+                + "departmentId="  + departmentId + ", "
+                + "name="  + name + ", "
+                + "abbreviation="  + abbreviation + ", "
+                + "collegeName="  + collegeName + ", "
+                + "roomNumber="  + roomNumber + ", "
+                + "buildingName="  + buildingName
+                + "</department>";
+    }
 }
