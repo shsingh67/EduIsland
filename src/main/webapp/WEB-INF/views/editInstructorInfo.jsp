@@ -12,10 +12,10 @@
 
         <label><b>Biography: </b></label>
             <%--NOTE: "biography" attribute corresponds to field "biography" of new instructorInfo object passed in:--%>
-        <input type="text" placeholder="${user.instructorInfo.biography}" name="biography" required>
+        <input type="text" placeholder="Enter biography" name="biography" value="${user.instructorInfo.biography}" required>
 
         <label><b>Photo: </b></label>
-        <input type="text" placeholder="${user.instructorInfo.photo}" name="photo" >
+        <input type="text" placeholder="Enter photo url" name="photo" value="${user.instructorInfo.photo}" >
 
 
         <button type="submit">Update</button>

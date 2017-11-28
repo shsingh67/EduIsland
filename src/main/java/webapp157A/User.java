@@ -38,7 +38,7 @@ public class User {
 
     public StudentInfo getStudentInfo() { return studentInfo; }
 
-    public InstructorInfo getInstructorInfo() { System.out.println("DEBUG: User: instructorInfo="+instructorInfo); return instructorInfo; }
+    public InstructorInfo getInstructorInfo() { return instructorInfo; }
 
     public AdminInfo getAdminInfo() { return adminInfo; }
 
@@ -60,7 +60,7 @@ public class User {
 
     public void setStudentInfo(StudentInfo studentInfo) { this.studentInfo = studentInfo; }
 
-    public void setInstructorInfo(InstructorInfo instructorInfo) { System.out.println("DEBUG: User: setting instructorInfo="+instructorInfo); this.instructorInfo = instructorInfo; }
+    public void setInstructorInfo(InstructorInfo instructorInfo) { this.instructorInfo = instructorInfo; }
 
     public void setAdminInfo(AdminInfo adminInfo) { this.adminInfo = adminInfo; }
 

@@ -25,6 +25,9 @@
         <td> This is the home page </td>
     </tr>
     <tr>
+        <td><a href="/welcome">My Page</a>
+    </tr>
+    <tr>
         <td> <a href="/logout">Logout</a> </td>
     </tr>
     <% } %>
