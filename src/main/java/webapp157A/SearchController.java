@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.util.List;
 
 
 @Controller
@@ -21,10 +21,13 @@ public class SearchController {
 
     @Autowired
     CourseDAO courseDAO;
-
+/*
+to search deploy the application and use the uri /searchCourse?name=somecourse &deparmentId = some id
+note deparment id is not a required param
+ */
  @RequestMapping(value = "/searchCourse", method = RequestMethod.GET)
-     public ModelAndView Search(HttpServletRequest request, HttpServletResponse response,
-                                @RequestParam(value ="name", required = true)  String name,
+     public ModelAndView searchCourse(HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam(value ="name", required = true) String name,
                                 @RequestParam(value ="departmentId", required = false) String departmentId) {
      ModelAndView mav = new ModelAndView("search");
 
@@ -35,9 +38,15 @@ public class SearchController {
 
     String sql = SearchManager.buildQuery();
     Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
-    courseDAO.getCourse(sql, values);
+    List<Course> courses = courseDAO.getCourse(sql, values);
 
     return mav;
      }
+
+//  @RequestMapping(value = "searchInstr", method = RequestMethod.GET)
+//    public ModelAndView searchInstr(HttpServletRequest request, HttpServletResponse response,
+//                                    @RequestParam())
+//
+//
 
 }
