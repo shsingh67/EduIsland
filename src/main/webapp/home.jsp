@@ -30,6 +30,12 @@
     <tr>
         <td> <a href="/logout">Logout</a> </td>
     </tr>
+
+    <%--testing only:--%>
+    <tr>
+        <td> <a href="/showCourse/se157A">Show Course: se157A</a> </td>
+    </tr>
+
     <% } %>
 
 </table>

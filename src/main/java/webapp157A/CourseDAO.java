@@ -17,9 +17,17 @@ public class CourseDAO {
     @Autowired
     DataSource dataSource;
 
+    public static final String GET_COURSE_FROM_ID = "select * from Course where course_id = ?";
+
     public List<Course> getCourse(String sql, Object[] values) {
         List<Course> courses = jdbcTemplate.query(sql, values, new CourseMapper());
         return courses.size() > 0 ? courses : null;
+    }
+
+    public Course getCourse(String courseId) {
+        List<Course> courses = jdbcTemplate.query(GET_COURSE_FROM_ID, new Object[]{courseId}, new CourseMapper());
+
+        return courses.size() > 0 ? courses.get(0) : null; // this checks if courses size > greater than 0, then return the course user else return null
     }
 
     public class CourseMapper implements RowMapper {

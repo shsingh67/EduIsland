@@ -15,6 +15,9 @@ public class Course {
     private String description;
     private String departmentId;
 
+    private Department department;
+
+
     public String getCourseId() {
         return courseId;
     }
@@ -35,6 +38,9 @@ public class Course {
         return departmentId;
     }
 
+    public Department getDepartment() { return department; }
+
+
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
@@ -54,6 +60,8 @@ public class Course {
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
+
+    public void setDepartment(Department department) { this.department = department; }
 
     public void setParams(String name, String departmentId) {
         HashMap<String, String> params = new HashMap<String, String>();
