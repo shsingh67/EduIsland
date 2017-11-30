@@ -36,8 +36,8 @@
 
     <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/eduControl" /> <!--<property name="url" value="jdbc:mysql://localhost:3306/Dev1" />-->
-        <property name="username" value="root" />
-        <property name="password" value="root" /> <!--<property name="password" value="sharan530" />-->
+        <property name="url" value="jdbc:mysql://web157a.c7zofchipi4i.us-east-2.rds.amazonaws.com:3306/amazonDev" /> <!--<property name="url" value="jdbc:mysql://localhost:3306/Dev1" />-->
+        <property name="username" value="sharan05" />
+        <property name="password" value="fall2017" /> <!--<property name="password" value="sharan530" />-->
     </bean>
 </beans>
