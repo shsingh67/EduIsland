@@ -17,6 +17,9 @@
         </td>
         <td><a href="register">Register</a>
         </td>
+    <tr>
+        <td><a href="/searchForCourse">Search for Courses</a>
+    </tr>
     </tr>
 
     <% } else { %>
@@ -26,6 +29,9 @@
     </tr>
     <tr>
         <td><a href="/welcome">My Page</a>
+    </tr>
+    <tr>
+        <td><a href="/searchForCourse">Search for Courses</a>
     </tr>
     <tr>
         <td> <a href="/logout">Logout</a> </td>

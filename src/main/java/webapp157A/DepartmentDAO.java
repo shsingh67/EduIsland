@@ -29,7 +29,7 @@ public class DepartmentDAO {
             "where department_ID = (select department_ID from AdministersFor where user_ID = ?);";
 
     public static final String GET_COURSE_DEPARTMENT = "select * from Department " +
-            "where department_ID = (select department_ID from Course where course_ID = ?);";
+            "where department_ID = (select department_ID from course where course_ID = ?);";
 
 
     public void createDepartment(Department department) {

@@ -17,6 +17,16 @@ public class UserDAO {
     @Autowired
     DataSource dataSource;
 
+    // linked resources:
+    @Autowired
+    ContactInfoDAO contactInfoDAO;
+    @Autowired
+    StudentDAO studentDAO;
+    @Autowired
+    InstructorDAO instructorDAO;
+    @Autowired
+    AdminDAO adminDAO;
+
     public static final String REGISTER_USER = "insert into user values(?, ?, ?)";
     public static final String VALIDATE_USER = "select * from user where user_id = ? and password = ?";
 
@@ -36,7 +46,45 @@ public class UserDAO {
             user.setUserId(rs.getString("user_id"));
             user.setPassword(rs.getString("password"));
             user.setDateJoined(rs.getDate("date_joined"));
+
+            setUserContactInfo(user);
+            setUserStudentInfo(user);
+            setUserInstructorInfo(user);
+            setUserAdminInfo(user);
+
             return user;
         }
     }
+
+
+    // private methods:
+
+    private void setUserContactInfo(User validUser)
+    {
+        ContactInfo validContactInfo = contactInfoDAO.getUserContactInfo(validUser.getUserId());
+        validUser.setUserContactInfo(validContactInfo);
+    }
+
+    // adds student info if any exists in database for this user (null if not a student):
+    private void setUserStudentInfo(User validUser)
+    {
+        StudentInfo validStudentInfo = studentDAO.getStudentInfo(validUser.getUserId());
+        validUser.setStudentInfo(validStudentInfo);
+    }
+
+    // adds instructor info if any exists in database for this user (null if not a student):
+    private void setUserInstructorInfo(User validUser)
+    {
+        InstructorInfo validInstructorInfo = instructorDAO.getInstructorInfo(validUser.getUserId());
+
+        validUser.setInstructorInfo(validInstructorInfo);
+    }
+
+    // adds admin info if any exists in database for this user (null if not a student):
+    private void setUserAdminInfo(User validUser)
+    {
+        AdminInfo validAdminInfo = adminDAO.getAdminInfo(validUser.getUserId());
+        validUser.setAdminInfo(validAdminInfo);
+    }
+
 }

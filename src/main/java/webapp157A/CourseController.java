@@ -23,32 +23,20 @@ public class CourseController {
     DepartmentDAO departmentDAO;
 
     @RequestMapping(value ="/showCourse/{courseId}", method = RequestMethod.GET)
-    public ModelAndView showContactInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+    public ModelAndView showContactInfo(HttpServletRequest request, HttpServletResponse response,
                                         @PathVariable("courseId") String courseId) {
-        User currentUser = (User)session.getAttribute("user");
-
-        ModelAndView mav = new ModelAndView("showCourse", "user", currentUser);  // name of the JSP file referencing.
+        ModelAndView mav = null;
 
         Course course = courseDAO.getCourse(courseId);
-        setDepartmentInfo(course);
 
-        mav.addObject("course", course);
+        if (course != null) {
+            mav = new ModelAndView("showCourse", "course", course);
+        } else { // course not found page
+            mav = new ModelAndView("resourceNotFound", "resource", "Course");
+            mav.addObject("Error", "No course found with ID = " + courseId);
+        }
 
         return mav;
-    }
-
-
-
-
-    // private members:
-
-    // adds admin info if any exists in database for this user (null if not a student):
-    private void setDepartmentInfo(Course course)
-    {
-        if (course != null) {
-            Department department = departmentDAO.getDepartmentOfCourse(course.getCourseId());
-            course.setDepartment(department);
-        }
     }
 
 

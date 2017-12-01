@@ -79,4 +79,18 @@ public class Course {
         SearchManager.addSearchParams(params);
 
     }
+
+    // General:
+
+    @Override
+    public String toString() {
+        return "<Course> " + "courseId=" + this.courseId + ", "
+                + "name=" + this.name + ", "
+                + "units=" + this.units + ", "
+                + "description=" + this.description + ", "
+                + "departmentId=" + this.departmentId
+                + "</Course>";
+    }
+
+
  }
