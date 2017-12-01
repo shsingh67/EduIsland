@@ -23,26 +23,31 @@ public class SearchController {
 
     @Autowired
     CourseDAO courseDAO;
+  
+/*
+to search deploy the application and use the uri /searchCourse?name=somecourse &deparmentId = some id
+note deparment id is not a required param
+ */
+ @RequestMapping(value = "/searchCourse", method = RequestMethod.GET)
+     public ModelAndView searchCourse(HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam(value ="name", required = true) String name,
+                                @RequestParam(value ="departmentId", required = false) String departmentId) {
+     ModelAndView mav = new ModelAndView("search");
 
-    @RequestMapping(value = "/searchCourse", method = RequestMethod.GET)
-    public ModelAndView Search(HttpServletRequest request, HttpServletResponse response,
-                               @RequestParam(value = "name", required = true) String name,
-                               @RequestParam(value = "departmentId", required = false) String departmentId) {
-        ModelAndView mav = new ModelAndView("search");
+     mav.addObject("name", name);
+     mav.addObject("departmentId", departmentId);
 
-        mav.addObject("name", name);
-        mav.addObject("departmentId", departmentId);
+     course.setParams(name, departmentId);
 
-        course.setParams(name, departmentId);
+    String sql = SearchManager.buildQuery();
+    Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
+    List<Course> courses = courseDAO.getCourse(sql, values);
 
-        String sql = SearchManager.buildQuery();
-        Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
-        courseDAO.getCourse(sql, values);
+    return mav;
+ }
 
-        return mav;
-    }
-
-    @RequestMapping(value = "/searchForCourse", method = RequestMethod.GET)
+  
+  @RequestMapping(value = "/searchForCourse", method = RequestMethod.GET)
     public ModelAndView searchForCourse(HttpServletRequest request, HttpServletResponse response) {
 
         ModelAndView mav = new ModelAndView("search"); // name of the JSP file referencing.
@@ -50,28 +55,27 @@ public class SearchController {
 
         return mav;
     }
-
-    @RequestMapping(value = "/searchForCourseProcess", method = RequestMethod.POST)
+  
+  @RequestMapping(value = "/searchForCourseProcess", method = RequestMethod.POST)
     public ModelAndView searchForCourseResult(HttpServletRequest request, HttpServletResponse response,
                                               @ModelAttribute("searchForCourseForm") Course courseInfoEntered) {
         ModelAndView mav = null;
 
-        System.out.println("DEBUG: @/searchForCourseProcess: courseInfoEntered = " + courseInfoEntered); // TODO: remove.
-
-        System.out.println("DEBUG: @/searchForCourseProcess: courseInfoEntered.getCourseId() = " + courseInfoEntered.getCourseId()); // TODO: remove.
-
-
         List<Course> validCourses = courseDAO.searchForCourses(courseInfoEntered); // TODO: add other options..
-
-        System.out.println("DEBUG: @/searchForCourseProcess: validCourses = " + validCourses); // TODO: remove.
-
+  
         if (validCourses != null) {
             mav = new ModelAndView("courseSearchResults", "courses", validCourses);
         } else { // course not found page:
             mav = new ModelAndView("resourceNotFound", "resource", "Course");
             mav.addObject("Error", "No course found with ID = " + courseInfoEntered.getCourseId());
         }
-
         return mav;
     }
+  
+//  @RequestMapping(value = "searchInstr", method = RequestMethod.GET)
+//    public ModelAndView searchInstr(HttpServletRequest request, HttpServletResponse response,
+//                                    @RequestParam())
+//
+//
+
 }

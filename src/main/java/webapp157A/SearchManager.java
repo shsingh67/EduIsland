@@ -20,9 +20,11 @@ public class SearchManager {
     }
 
   public static HashMap<String, String> params = new HashMap<String, String>();
-  public static ArrayList<Object> values = new ArrayList<Object>();
+  public static ArrayList<Object> values;
 
   public static String buildQuery() {
+
+      values = new ArrayList<Object>();
 
        // TODO: 11/24/17 configure dynamic searching for courses and instructors
 
