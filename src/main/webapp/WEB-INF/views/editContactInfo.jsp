@@ -46,7 +46,7 @@
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-        <a href="home.jsp">Cancel</a>
+        <a href="/welcome">Cancel</a>
     </div>
 
     <table align="bottom">

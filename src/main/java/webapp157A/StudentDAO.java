@@ -17,7 +17,7 @@ public class StudentDAO {
     @Autowired
     DataSource dataSource;
 
-    public static final String GET_STUDENT_WITH_USER_ID = "select * from student where user_ID = ?;";
+    public static final String GET_STUDENT_WITH_USER_ID = "select * from Student where user_ID = ?;";
 
 
     public StudentInfo getStudentInfo(String userId) {

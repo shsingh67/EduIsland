@@ -17,6 +17,9 @@ public class InstructorDAO {
     @Autowired
     DataSource dataSource;
 
+    @Autowired
+    DepartmentDAO departmentDAO; // linked resource
+
     public static final String GET_INSTRUCTOR_WITH_USER_ID = "select * from Instructor where user_ID = ?;";
 
     public static final String UPDATE_INSTRUCTOR_INFO = "update Instructor set biography=?, photo=?, position=? where user_id=?;";
@@ -48,6 +51,12 @@ public class InstructorDAO {
             instructorInfo.setBiography(rs.getString("biography"));
             instructorInfo.setPhoto(rs.getString("photo"));
             instructorInfo.setPosition(rs.getString("position"));
+
+            Department departmentTeachesFor = departmentDAO.getDepartmentTeachesFor(instructorInfo.getUserId());
+            instructorInfo.setDepartmentTeachesFor(departmentTeachesFor);
+
+            //TODO: Add office hours here...
+
             return instructorInfo;
         }
     }

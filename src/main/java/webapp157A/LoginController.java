@@ -46,11 +46,6 @@ public class LoginController {
         ModelAndView mav = null;
         User validUser = userDAO.validateUser(user);
 
-        setUserContactInfo(validUser);
-        setUserStudentInfo(validUser);
-        setUserInstructorInfo(validUser);
-        setUserAdminInfo(validUser);
-
         if(validUser != null) {
             mav = new ModelAndView("welcome", "user", validUser);
 
@@ -82,49 +77,9 @@ public class LoginController {
         return new ModelAndView("welcome", "user", currentUser);
     }
 
-
-    // Private methods:
-
-    private void setUserContactInfo(User validUser)
-    {
-        ContactInfo validContactInfo = contactInfoDAO.getUserContactInfo(validUser.getUserId());
-        validUser.setUserContactInfo(validContactInfo);
-    }
-
-    // adds student info if any exists in database for this user (null if not a student):
-    private void setUserStudentInfo(User validUser)
-    {
-        StudentInfo validStudentInfo = studentDAO.getStudentInfo(validUser.getUserId());
-        validUser.setStudentInfo(validStudentInfo);
-    }
-
-    // adds instructor info if any exists in database for this user (null if not a student):
-    private void setUserInstructorInfo(User validUser)
-    {
-        InstructorInfo validInstructorInfo = instructorDAO.getInstructorInfo(validUser.getUserId());
-
-        if (validInstructorInfo != null) {
-            Department departmentTeachesFor = departmentDAO.getDepartmentTeachesFor(validUser.getUserId());
-            validInstructorInfo.setDepartmentTeachesFor(departmentTeachesFor);
-        }
-
-        //TODO: Add office hours here...
-
-        validUser.setInstructorInfo(validInstructorInfo);
-    }
-
-    // adds admin info if any exists in database for this user (null if not a student):
-    private void setUserAdminInfo(User validUser)
-    {
-        AdminInfo validAdminInfo = adminDAO.getAdminInfo(validUser.getUserId());
-
-        if (validAdminInfo != null) {
-            Department departmentAdministersFor = departmentDAO.getDepartmentAdministersFor(validUser.getUserId());
-            validAdminInfo.setDepartmentAdministers(departmentAdministersFor);
-        }
-
-
-        validUser.setAdminInfo(validAdminInfo);
+    @RequestMapping(value ="/home", method = RequestMethod.GET)
+    public ModelAndView getHomePage(HttpServletRequest request, HttpServletResponse response) {
+        return new ModelAndView("home");
     }
 
 }

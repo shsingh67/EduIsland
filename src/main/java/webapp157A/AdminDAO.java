@@ -17,6 +17,9 @@ public class AdminDAO {
     @Autowired
     DataSource dataSource;
 
+    @Autowired
+    DepartmentDAO departmentDAO; // linked resource.
+
     public static final String GET_ADMIN_WITH_USER_ID = "select * from Administrator where user_ID = ?;";
 
     public static final String UPDATE_ADMIN_INFO = "update Administrator set title=? where user_id=?;";
@@ -37,7 +40,12 @@ public class AdminDAO {
             AdminInfo adminInfo = new AdminInfo();
             adminInfo.setUserId(rs.getString("user_id"));
             adminInfo.setTitle(rs.getString("title"));
+
+            Department departmentAdministersFor = departmentDAO.getDepartmentAdministersFor(adminInfo.getUserId());
+            adminInfo.setDepartmentAdministers(departmentAdministersFor);
+
             return adminInfo;
         }
     }
+
 }

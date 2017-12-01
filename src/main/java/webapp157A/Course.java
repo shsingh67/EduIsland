@@ -15,6 +15,9 @@ public class Course {
     private String description;
     private String departmentId;
 
+    private Department department;
+
+
     public String getCourseId() {
         return courseId;
     }
@@ -34,6 +37,9 @@ public class Course {
     public String getDepartmentId() {
         return departmentId;
     }
+
+    public Department getDepartment() { return department; }
+
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
@@ -55,6 +61,8 @@ public class Course {
         this.departmentId = departmentId;
     }
 
+    public void setDepartment(Department department) { this.department = department; }
+
     public void setParams(String name, String departmentId) {
         HashMap<String, String> params = new HashMap<String, String>();
         if(name != null) {
@@ -71,4 +79,18 @@ public class Course {
         SearchManager.addSearchParams(params);
 
     }
+
+    // General:
+
+    @Override
+    public String toString() {
+        return "<Course> " + "courseId=" + this.courseId + ", "
+                + "name=" + this.name + ", "
+                + "units=" + this.units + ", "
+                + "description=" + this.description + ", "
+                + "departmentId=" + this.departmentId
+                + "</Course>";
+    }
+
+
  }

@@ -28,6 +28,9 @@ public class DepartmentDAO {
     public static final String GET_ADMIN_DEPARTMENT = "select * from Department " +
             "where department_ID = (select department_ID from AdministersFor where user_ID = ?);";
 
+    public static final String GET_COURSE_DEPARTMENT = "select * from Department " +
+            "where department_ID = (select department_ID from course where course_ID = ?);";
+
 
     public void createDepartment(Department department) {
         jdbcTemplate.update(CREATE_DEPARTMENT, new Object[] {department.getDepartmentId(), department.getName(),
@@ -56,6 +59,13 @@ public class DepartmentDAO {
 
     public Department getDepartmentAdministersFor(String adminUserId) {
         List<Department> departments = jdbcTemplate.query(GET_ADMIN_DEPARTMENT, new Object[]{adminUserId}, new DepartmentMapper());
+
+        return departments.size() > 0 ? departments.get(0) : null; // this checks if departments size > greater than 0, then return the first department else return null
+    }
+
+
+    public Department getDepartmentOfCourse(String courseId) {
+        List<Department> departments = jdbcTemplate.query(GET_COURSE_DEPARTMENT, new Object[]{courseId}, new DepartmentMapper());
 
         return departments.size() > 0 ? departments.get(0) : null; // this checks if departments size > greater than 0, then return the first department else return null
     }
