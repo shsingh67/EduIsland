@@ -1,10 +1,5 @@
 package webapp157A;
 
-import com.mysql.jdbc.TimeUtil;
-
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class Department {
 
     private String departmentId;

@@ -15,6 +15,9 @@
     <bean id="Course" class="webapp157A.Course" />
     <bean id="CourseDAO" class ='webapp157A.CourseDAO' />
 
+    <bean id="Section" class="webapp157A.Section" />
+    <bean id="SectionDAO" class ='webapp157A.SectionDAO' />
+
     <bean id="ContactInfo" class="webapp157A.ContactInfo" />
     <bean id="ContactInfoDAO" class="webapp157A.ContactInfoDAO" />
 

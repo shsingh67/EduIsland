@@ -19,7 +19,7 @@ public class Course {
 
 
     public String getCourseId() {
-        return courseId;
+        return courseId.toUpperCase();
     }
 
     public String getName() {
