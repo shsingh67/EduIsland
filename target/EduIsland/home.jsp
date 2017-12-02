@@ -17,6 +17,9 @@
         </td>
         <td><a href="register">Register</a>
         </td>
+    <tr>
+        <td><a href="/searchForCourse">Search for Courses</a>
+    </tr>
     </tr>
 
     <% } else { %>
@@ -28,8 +31,17 @@
         <td><a href="/welcome">My Page</a>
     </tr>
     <tr>
+        <td><a href="/searchForCourse">Search for Courses</a>
+    </tr>
+    <tr>
         <td> <a href="/logout">Logout</a> </td>
     </tr>
+
+    <%--testing only:--%>
+    <tr>
+        <td> <a href="/showCourse/se157A">Show Course: se157A</a> </td>
+    </tr>
+
     <% } %>
 
 </table>
