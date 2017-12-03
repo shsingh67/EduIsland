@@ -528,7 +528,7 @@ department_ID</ColNames>
     </column>
     <column id="136" parent="29" name="units">
       <Position>3</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(30)|0</DataType>
     </column>
     <column id="137" parent="29" name="description">
       <Position>4</Position>
