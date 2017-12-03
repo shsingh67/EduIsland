@@ -16,16 +16,17 @@ public class SearchManager {
       SEARCH_PARAMS = new HashMap<String, SearchParam>();
       SEARCH_PARAMS.put("name", new SimpleSearchParam());
       SEARCH_PARAMS.put("department_id", new SimpleSearchParam());
+      SEARCH_PARAMS.put("course_id", new SimpleSearchParam());
+      SEARCH_PARAMS.put("units", new SimpleSearchParam());
+      SEARCH_PARAMS.put("description", new SimpleSearchParam());
 
     }
 
-  public static HashMap<String, String> params = new HashMap<String, String>();
+  public static HashMap<String, String> params;
   public static ArrayList<Object> values;
 
   public static String buildQuery() {
-
       values = new ArrayList<Object>();
-
        // TODO: 11/24/17 configure dynamic searching for courses and instructors
 
        StringBuilder builder = new StringBuilder();
@@ -46,6 +47,7 @@ public class SearchManager {
    }
 
   public static void addSearchParams(HashMap<String, String> params) {
+      SearchManager.params = new HashMap<String, String>();
       SearchManager.params.putAll(params);
    }
 

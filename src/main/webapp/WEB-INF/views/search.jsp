@@ -7,24 +7,26 @@
 
 
 
-<form:form id=" searchingForm" modelAttribute = "searchForCourseForm" action = "searchForCourseProcess" method = "post">
+<form:form id=" searchingForm" action = "searchCourse" method = "post">
 
 
     <div class="container">
-        <label><b>Course ID: </b></label>
-        <input type="text" placeholder="Enter course id" name="courseId" required>
+         <label><b>Course ID: </b></label>
+         <input type="text" placeholder="Enter course name" name="courseId" required>
 
-        <%--<label><b>Name: </b></label>--%>
-        <%--<input type="text" placeholder="Enter course name" name="name" required>--%>
 
-        <%--<label><b>Units: </b></label>--%>
-        <%--<input type="text" placeholder="Enter course units" name="units" required>--%>
+        <label><b>Course Name: </b></label>
 
-        <%--<label><b>Description: </b></label>--%>
-        <%--<input type="text" placeholder="Enter course description" name="description" required>--%>
+        <input type="text" placeholder="Enter course name" name="name" >
 
-        <%--<label><b>Department ID: </b></label>--%>
-        <%--<input type="text" placeholder="Enter department id" name="departmentId" required>--%>
+        <label><b>Units: </b></label>
+        <input type="text" placeholder="Enter course units" name="units" >
+
+        <label><b>Description: </b></label>
+        <input type="text" placeholder="Enter course description" name="description">
+
+        <label><b>Department ID: </b></label>
+        <input type="text" placeholder="Enter department id" name="departmentId">
 
         <button type="submit">Search</button>
     </div>
