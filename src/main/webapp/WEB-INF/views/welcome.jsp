@@ -1,4 +1,5 @@
 <%--This is the page the user sees once they log into their account.--%>
+<%@ page import="webapp157A.User" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +45,16 @@
     </style>
 </head>
 <body>
+
+<%
+    User user = (User)session.getAttribute("user");
+
+    // Don't let user see this page if not logged in.
+    if(user == null) {
+        response.sendRedirect("home.jsp");
+    }
+
+%>
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -111,8 +122,8 @@
                 <p>${user.adminInfo.departmentAdministers.name}</p>
                 <hr>
             </c:if>
-            <h3>Test </h3>
-            <p>Lorem ipsum...</p>
+            <%--<h3>Test </h3>--%>
+            <%--<p>Lorem ipsum...</p>--%>
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">
