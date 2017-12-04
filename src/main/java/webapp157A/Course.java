@@ -34,6 +34,10 @@ public class Course {
         return units;
     }
 
+    public int getNumUnits() {
+        return Integer.parseInt(units);
+    }
+
     public String getDescription() {
         return description;
     }

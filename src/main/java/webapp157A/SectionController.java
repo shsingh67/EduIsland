@@ -150,7 +150,7 @@ public class SectionController {
 
     private int getUnitsForSection(Section section) {
         Course course = courseDAO.getCourse(section.getCourseId());
-        return course.getUnits();
+        return course.getNumUnits();
     }
 
     private boolean isStudentAlreadyEnrolled(String sectionId, String studentId) {
@@ -163,7 +163,7 @@ public class SectionController {
         int numberUnitsStudentIsTaking = 0;
 
         for (Course c : coursesStudentIsTaking) {
-            numberUnitsStudentIsTaking += c.getUnits();
+            numberUnitsStudentIsTaking += c.getNumUnits();
         }
 
         return numberUnitsStudentIsTaking;

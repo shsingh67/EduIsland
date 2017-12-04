@@ -69,7 +69,7 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"> <a href="home.jsp">Home</a> </li>
-                <li><a href="/searchForCourse">Search</a></li>
+                <li><a href="/search">Search</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -84,7 +84,7 @@
     <div class="row content">
         <div class="col-sm-2 sidenav">
             <p><a href="/showContactInfo">Edit My Contact Info</a></p>
-            <p><a href="/searchForCourse">Search for Courses</a></p>
+            <p><a href="/search">Search for Courses</a></p>
             <p><a href="/mySectionHistory">My Section History</a></p>
         </div>
         <div class="col-sm-8 text-left">
