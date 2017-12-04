@@ -24,6 +24,13 @@ public class AdminDAO {
 
     public static final String UPDATE_ADMIN_INFO = "update Administrator set title=? where user_id=?;";
 
+    public static final String CREATE_INSTRUCTOR_RECORD = "insert into Instructor values(?,?,?,?)";
+
+    public static final String CREATE_STUDENT_RECORD = "insert into Student values(?,?)";
+
+    public static final String CREATE_COURSE_RECORD = "insert into course values(?,?,?,?,?)";
+
+
     public AdminInfo getAdminInfo(String userId) {
         List<AdminInfo> adminInfos = jdbcTemplate.query(GET_ADMIN_WITH_USER_ID, new Object[]{userId}, new AdminMapper());
 
@@ -33,6 +40,19 @@ public class AdminDAO {
     public void updateAdminInfo(AdminInfo adminInfo) {
         jdbcTemplate.update(UPDATE_ADMIN_INFO, new Object[] {adminInfo.getTitle(),
                 adminInfo.getUserId()});
+    }
+
+    public void createInstruc(InstructorInfo instruc) {
+        jdbcTemplate.update(CREATE_INSTRUCTOR_RECORD, new Object[] {instruc.getUserId(), instruc.getBiography(), instruc.getPhoto(), instruc.getPosition()});
+    }
+
+    public void createStudent(StudentInfo studentInfo) {
+        jdbcTemplate.update(CREATE_STUDENT_RECORD, new Object[] {studentInfo.getUserId(), studentInfo.getEnrollmentStatus()});
+    }
+
+    public void createCourse(Course course) {
+        jdbcTemplate.update(CREATE_COURSE_RECORD, new Object[] {course.getCourseId(), course.getName(), course.getUnits(), course.getDescription(), course.getDepartmentId()});
+
     }
 
     public class AdminMapper implements RowMapper {

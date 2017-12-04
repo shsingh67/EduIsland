@@ -30,6 +30,10 @@
     <bean id="Department" class="webapp157A.Department" />
     <bean id="DepartmentDAO" class="webapp157A.DepartmentDAO" />
 
+    <bean id="HasPrivilege" class="webapp157A.HasPrivilege"/>
+    <bean id="HasPrivilegeDAO" class="webapp157A.HasPrivilegeDAO"/>
+
+
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="datasource" />
     </bean>
