@@ -103,15 +103,21 @@ public class SectionController {
             else if (isStudentAlreadyEnrolled(section.getSectionId(), currentUser.getUserId())) {
                 mav.addObject("Error", "Student is already enrolled in this course.");
             }
-            else if (!studentMeetsPrerequisites(currentUser.getUserId(), section.getSectionId())) {
-                mav.addObject("Error", "Student does not meet prerequisites to enroll in this course.");
-            }
             else if (studentExceedsUnitCap(currentUser.getUserId(), section)) {
                 mav.addObject("Error", "Student cannot enroll due to excess units.");
             }
             else {
-                sectionDAO.enrollStudentInSection(currentUser.getUserId(), section.getSectionId());
-                mav.addObject("SuccessMessage", "Student successfully enrolled in section.");
+                List<Course> coursesStillNeed = courseDAO.getPrerequisitesStillNeed(section.getCourseId(), currentUser.getUserId());
+
+                // student meets prereqs:
+                if (coursesStillNeed == null || coursesStillNeed.isEmpty()) {
+                    sectionDAO.enrollStudentInSection(currentUser.getUserId(), section.getSectionId());
+                    mav.addObject("SuccessMessage", "Student successfully enrolled in section.");
+                }
+                else {
+                    mav.addObject("Error", "Student does not meet prerequisites to enroll in this course. ");
+                    mav.addObject("coursesStillNeed", coursesStillNeed);
+                }
             }
         }
 
@@ -147,9 +153,6 @@ public class SectionController {
         return 18; // TODO: actually implement.
     }
 
-    private boolean studentMeetsPrerequisites(String studentId, String sectionId) {
-        return true; // TODO: actually implement.
-    }
 
     private boolean studentCanRegisterThisSemester() {
         return true; // TODO: actually implement.

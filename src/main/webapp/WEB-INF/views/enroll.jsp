@@ -21,6 +21,23 @@
         <tr>
             <td> Error: ${Error} </td>
         </tr>
+
+        <c:if test="${not empty coursesStillNeed}">
+            <tr>
+                <td> Courses still needed: </td>
+            </tr>
+
+            <c:forEach items="${coursesStillNeed}" var="course" varStatus="status">
+                <tr>
+                    <td> <a href="/showCourse/${course.courseId}"> ${course.courseId}</a>  </td>
+                </tr>
+                <tr>
+                    <td> ----------------------------- </td>
+                </tr>
+            </c:forEach>
+
+        </c:if>
+
     </c:if>
     <c:if test="${not empty SuccessMessage}">
         <tr>
