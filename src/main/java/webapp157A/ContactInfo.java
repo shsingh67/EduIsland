@@ -80,8 +80,6 @@ public class ContactInfo {
         if (newContactInfo.zipCode != null && !newContactInfo.zipCode.equals("")) { setZipCode(newContactInfo.getZipCode()); }
     }
 
-    // General methods:
-
     @Override
     public String toString()
     {

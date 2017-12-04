@@ -124,6 +124,7 @@
             </c:if>
             <%--<h3>Test </h3>--%>
             <%--<p>Lorem ipsum...</p>--%>
+
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">

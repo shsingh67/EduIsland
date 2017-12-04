@@ -18,4 +18,7 @@ public class AdminInfo {
     public Department getDepartmentAdministers() { return departmentAdministers; }
     public void setDepartmentAdministers(Department departmentAdministers) { this.departmentAdministers = departmentAdministers; }
 
+
+
+
 }

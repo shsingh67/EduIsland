@@ -105,7 +105,7 @@ public class CourseDAO {
             Course course = new Course();
             course.setCourseId(rs.getString("course_id"));
             course.setName(rs.getString("name"));
-            course.setUnits(rs.getInt("units"));
+            course.setUnits(rs.getString("units"));
             course.setDescription(rs.getString("description"));
             course.setDepartmentId(rs.getString("department_id"));
 

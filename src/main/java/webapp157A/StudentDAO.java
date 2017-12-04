@@ -26,6 +26,12 @@ public class StudentDAO {
         return studentInfos.size() > 0 ? studentInfos.get(0) : null; // this checks if users size > greater than 0, then return the first student else return null
     }
 
+    public StudentInfo getStudentInfo(String userId, Object[] values) {
+        List<StudentInfo> studentInfos = jdbcTemplate.query(GET_STUDENT_WITH_USER_ID, values, new StudentMapper());
+
+        return studentInfos.size() > 0 ? studentInfos.get(0) : null; // this checks if users size > greater than 0, then return the first student else return null
+    }
+
     public class StudentMapper implements RowMapper {
         public StudentInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
             StudentInfo studentInfo = new StudentInfo();

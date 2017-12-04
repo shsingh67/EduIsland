@@ -1,5 +1,7 @@
 package webapp157A;
 
+import java.util.HashMap;
+
 public class StudentInfo {
 
     private String userId;
@@ -13,5 +15,6 @@ public class StudentInfo {
 
     public String getEnrollmentStatus() { return enrollmentStatus; }
     public void setEnrollmentStatus(String enrollmentStatus) { this.enrollmentStatus = enrollmentStatus; }
+
 
 }

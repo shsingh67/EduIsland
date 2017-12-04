@@ -28,6 +28,8 @@ public class ContactInfoDAO {
                                                         "phone_number=?, email_address=?, email_address_2=?, " +
                                                             "street=?, city=?, state=?, zip_code=? where contact_id=?;";
 
+    public static final String GET_CONTACT_INFO_BY_FIRST_LAST_EMAIL = "select * from ContactInfo where first_name = ? and last_name = ? and email_address = ?";
+
 
     public void addContactInfoToUser(String userId, ContactInfo contactInfo) {
 
@@ -78,6 +80,12 @@ public class ContactInfoDAO {
         List<ContactInfo> contacts = jdbcTemplate.query(GET_USER_CONTACT_INFO, new Object[]{userId}, new ContactInfoMapper());
 
         return contacts.size() > 0 ? contacts.get(0) : null; // this checks if users size > greater than 0, then return the first contactInfo else return null
+    }
+
+    public ContactInfo getInfoFirstAndLastAndEmail(Object[] values) {
+        List<ContactInfo> contacts = jdbcTemplate.query(GET_CONTACT_INFO_BY_FIRST_LAST_EMAIL, values, new ContactInfoMapper());
+
+        return contacts.size() > 0 ? contacts.get(0) : null;
     }
 
 

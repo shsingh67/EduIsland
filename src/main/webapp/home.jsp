@@ -18,7 +18,7 @@
         <td><a href="register">Register</a>
         </td>
     <tr>
-        <td><a href="/searchForCourse">Search for Courses</a>
+        <td><a href="/search">Search for Courses</a>
     </tr>
     </tr>
 
@@ -31,7 +31,7 @@
         <td><a href="/welcome">My Page</a>
     </tr>
     <tr>
-        <td><a href="/searchForCourse">Search for Courses</a>
+        <td><a href="/search">Search for Courses</a>
     </tr>
     <tr>
         <td> <a href="/logout">Logout</a> </td>

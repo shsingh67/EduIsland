@@ -18,66 +18,79 @@ import java.util.List;
 @Controller
 public class SearchController {
 
-    Course course;
 
     @Autowired
     CourseDAO courseDAO;
-  
-/*
-to search deploy the application and use the uri /searchCourse?name=somecourse &deparmentId = some id
-note deparment id is not a required param
- */
- @RequestMapping(value = "/searchCourse", method = RequestMethod.GET)
-     public ModelAndView searchCourse(HttpServletRequest request, HttpServletResponse response,
-                                @RequestParam(value ="name", required = true) String name,
-                                @RequestParam(value ="departmentId", required = false) String departmentId) {
-     ModelAndView mav = new ModelAndView("search");
 
-     mav.addObject("name", name);
-     mav.addObject("departmentId", departmentId);
+    @Autowired
+    ContactInfoDAO contactInfoDAO;
 
-     course.setParams(name, departmentId);
+    @Autowired
+    UserDAO userDAO;
 
-    String sql = SearchManager.buildQuery();
-    Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
-    List<Course> courses = courseDAO.getCourse(sql, values);
+    @Autowired
+    StudentDAO studentDAO;
 
-    return mav;
- }
+    @Autowired
+    InstructorDAO instructorDAO;
 
-  
-  @RequestMapping(value = "/searchForCourse", method = RequestMethod.GET)
-    public ModelAndView searchForCourse(HttpServletRequest request, HttpServletResponse response) {
+    @Autowired
+    AdminDAO adminDAO;
 
-        ModelAndView mav = new ModelAndView("search"); // name of the JSP file referencing.
-        mav.addObject("searchForCourseForm", new Course()); // attributeName from JSP form's modelAttribute field.
 
-        return mav;
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String getForm(HttpServletRequest request, HttpServletResponse response) {
+
+        return "search";
     }
-  
-  @RequestMapping(value = "/searchForCourseProcess", method = RequestMethod.POST)
-    public ModelAndView searchForCourseResult(HttpServletRequest request, HttpServletResponse response,
-                                              @ModelAttribute("searchForCourseForm") Course courseInfoEntered) {
-        ModelAndView mav = null;
 
-        List<Course> validCourses = courseDAO.searchForCourses(courseInfoEntered); // TODO: add other options..
-  
-        if (validCourses != null) {
-            mav = new ModelAndView("courseSearchResults", "courses", validCourses);
+    @RequestMapping(value = "/searchCourse", method = RequestMethod.POST)
+    public ModelAndView searchCourse(HttpServletRequest request, HttpServletResponse response,
+                                     @RequestParam(value = "courseId", required = true) String courseId,
+                                     @RequestParam(value = "name", required = false) String name,
+                                     @RequestParam(value = "departmentId", required = false) String departmentId,
+                                     @RequestParam(value = "units", required = false) String units,
+                                     @RequestParam(value = "description", required = false) String description) {
+        ModelAndView mav = new ModelAndView();
+        Course course = new Course();
+        course.setParams(courseId, name, departmentId, units, description);
+        String sql = SearchManager.buildCourseQuery();
+        Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
+        List<Course> courses = courseDAO.getCourse(sql, values);
+        if (courses != null) {
+            mav = new ModelAndView("courseSearchResults", "courses", courses);
         } else { // course not found page:
             mav = new ModelAndView("resourceNotFound", "resource", "Course");
-            mav.addObject("Error", "No course found with ID = " + courseInfoEntered.getCourseId());
+            mav.addObject("Error", "No course found with ID = " + courseId);
         }
         return mav;
+
+    }
+
+    @RequestMapping(value ="/genericForm", method = RequestMethod.GET)
+    public String getGenericForm(HttpServletRequest request, HttpServletResponse response) {
+        return "genericSearch";
     }
 
 
+    @RequestMapping(value = "/genericSearch", method = RequestMethod.POST)
+    public ModelAndView searchStudent(HttpServletRequest request, HttpServletResponse response,
+                                      @RequestParam(value = "firstName", required = true) String firstName,
+                                      @RequestParam(value = "lastName", required = true) String lastName,
+                                      @RequestParam(value = "emailAddress", required = true) String emailAddress) {
 
+        ModelAndView mav = new ModelAndView("genricSearchView");
+        Object[] values = new Object[]{firstName, lastName, emailAddress};
+        ContactInfo contactInfo = contactInfoDAO.getInfoFirstAndLastAndEmail(values);
+        if (contactInfo != null) {
+            mav.addObject("contactInfo", contactInfo);
+            User user = userDAO.getUserByContactId(contactInfo.getContactId());
+            mav.addObject("user", user);
+        } else { // search not found
+            mav.addObject("Error", "No such entry exists");
 
-//  @RequestMapping(value = "searchInstr", method = RequestMethod.GET)
-//    public ModelAndView searchInstr(HttpServletRequest request, HttpServletResponse response,
-//                                    @RequestParam())
-//
-//
+        }
 
+        return mav;
+    }
 }

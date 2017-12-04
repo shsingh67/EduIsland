@@ -11,7 +11,7 @@ public class Course {
 
     private String courseId;
     private String name;
-    private int units;
+    private String units;
     private String description;
     private String departmentId;
 
@@ -30,7 +30,7 @@ public class Course {
         return name;
     }
 
-    public int getUnits() {
+    public String getUnits() {
         return units;
     }
 
@@ -53,7 +53,7 @@ public class Course {
         this.name = name;
     }
 
-    public void setUnits(int units) {
+    public void setUnits(String units) {
         this.units = units;
     }
 
@@ -67,17 +67,34 @@ public class Course {
 
     public void setDepartment(Department department) { this.department = department; }
 
-    public void setParams(String name, String departmentId) {
+    public void setParams(String courseId, String name, String departmentId, String units, String description ) {
         HashMap<String, String> params = new HashMap<String, String>();
-        if(name != null) {
+        if(name.trim().compareTo("") != 0) {
             this.name = name;                                            // this is fine for now since there are only two parameters - not scalable
             params.put("name", name);
 
         }
 
-        if(departmentId != null) {
+
+        if(departmentId.trim().compareTo("") != 0) {
             this.departmentId = departmentId;
             params.put("department_id", departmentId);
+        }
+
+        if(courseId.trim().compareTo("") != 0) {
+            this.courseId = courseId;
+            params.put("course_id", courseId);
+        }
+
+        if(units.trim().compareTo("") != 0) {
+            this.units = units;
+            params.put("units", units);
+
+        }
+
+        if(description.trim().compareTo("") != 0) {
+            this.description = description;
+            params.put("description", description);
         }
 
         SearchManager.addSearchParams(params);

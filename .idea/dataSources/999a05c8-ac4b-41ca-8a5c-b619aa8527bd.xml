@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="AmazonRD2">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="amazonDev">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="innodb"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sys"/>
+    <table id="8" parent="2" name="AdministersFor"/>
+    <table id="9" parent="2" name="Administrator"/>
+    <table id="10" parent="2" name="CanManageFee"/>
+    <table id="11" parent="2" name="ContactInfo"/>
+    <table id="12" parent="2" name="CourseHasPrerequisite"/>
+    <table id="13" parent="2" name="Department"/>
+    <table id="14" parent="2" name="Fee"/>
+    <table id="15" parent="2" name="HasContactInfo"/>
+    <table id="16" parent="2" name="HasEmergencyContact"/>
+    <table id="17" parent="2" name="HasOfficeHoursAt"/>
+    <table id="18" parent="2" name="HasPrivilege"/>
+    <table id="19" parent="2" name="Instructor"/>
+    <table id="20" parent="2" name="IsInProgram"/>
+    <table id="21" parent="2" name="Privilege"/>
+    <table id="22" parent="2" name="Program"/>
+    <table id="23" parent="2" name="ProgramRequires"/>
+    <table id="24" parent="2" name="Room"/>
+    <table id="25" parent="2" name="SectionTaughtAt"/>
+    <table id="26" parent="2" name="Student"/>
+    <table id="27" parent="2" name="StudentTakes"/>
+    <table id="28" parent="2" name="TeachesFor"/>
+    <table id="29" parent="2" name="course"/>
+    <table id="30" parent="2" name="section"/>
+    <table id="31" parent="2" name="user"/>
+    <column id="32" parent="8" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="8" name="department_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="34" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+department_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="35" parent="9" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="9" name="title">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="37" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="38" parent="10" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="10" name="fee_type">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="40" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+fee_type</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="41" parent="11" name="contact_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="11" name="first_name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="11" name="middle_name">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="44" parent="11" name="last_name">
+      <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="11" name="phone_number">
+      <Position>5</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="46" parent="11" name="email_address">
+      <Position>6</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="47" parent="11" name="email_address_2">
+      <Position>7</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="48" parent="11" name="street">
+      <Position>8</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="49" parent="11" name="city">
+      <Position>9</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="50" parent="11" name="state">
+      <Position>10</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="51" parent="11" name="zip_code">
+      <Position>11</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="52" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>contact_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="53" parent="12" name="requirer_course_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="12" name="requirement_course_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="55" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>requirer_course_ID
+requirement_course_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="56" parent="13" name="department_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="13" name="name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="58" parent="13" name="abbreviation">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="59" parent="13" name="college_name">
+      <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="60" parent="13" name="room_number">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="61" parent="13" name="building_name">
+      <Position>6</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="62" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>department_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="63" parent="14" name="fee_type">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="14" name="fee_amount">
+      <Position>2</Position>
+      <DataType>decimal(6,2)|0</DataType>
+    </column>
+    <column id="65" parent="14" name="fee_description">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="66" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>fee_type</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="67" parent="15" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="68" parent="15" name="contact_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="69" parent="15" name="fk_contact_ID_idx">
+      <ColNames>contact_ID</ColNames>
+    </index>
+    <key id="70" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+contact_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="71" parent="16" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="72" parent="16" name="emergency_contact_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="16" name="relationship_with_user">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="74" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+emergency_contact_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="75" parent="17" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="76" parent="17" name="start_time">
+      <Position>2</Position>
+      <DataType>time|0</DataType>
+    </column>
+    <column id="77" parent="17" name="end_time">
+      <Position>3</Position>
+      <DataType>time|0</DataType>
+    </column>
+    <column id="78" parent="17" name="days_of_the_week">
+      <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="79" parent="17" name="room_number">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="80" parent="17" name="building_name">
+      <Position>6</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="81" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="82" parent="18" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="83" parent="18" name="field">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="84" parent="18" name="access_type">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="85" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+field
+access_type</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="86" parent="19" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="87" parent="19" name="biography">
+      <Position>2</Position>
+      <DataType>varchar(1000)|0</DataType>
+    </column>
+    <column id="88" parent="19" name="photo">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="89" parent="19" name="position">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="90" parent="19" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="91" parent="20" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="92" parent="20" name="program_name">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="93" parent="20" name="program_year">
+      <Position>3</Position>
+      <DataType>year(4)|0</DataType>
+    </column>
+    <key id="94" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+program_name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="95" parent="21" name="field">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="96" parent="21" name="access_type">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="97" parent="21" name="description">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="98" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>field
+access_type</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="99" parent="22" name="name">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="100" parent="22" name="graduate_level">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="101" parent="22" name="type">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="102" parent="22" name="description">
+      <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="103" parent="22" name="department_ID">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <key id="104" parent="22" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="105" parent="23" name="program_name">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="106" parent="23" name="course_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="107" parent="23" name="program_year">
+      <Position>3</Position>
+      <DataType>year(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="108" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>program_name
+course_ID
+program_year</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="109" parent="24" name="room_number">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="110" parent="24" name="building_name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="111" parent="24" name="room_type">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="112" parent="24" name="capacity">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <key id="113" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>room_number
+building_name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="114" parent="25" name="section_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="115" parent="25" name="room_number">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="116" parent="25" name="building_name">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="117" parent="25" name="start_time">
+      <Position>4</Position>
+      <DataType>time|0</DataType>
+    </column>
+    <column id="118" parent="25" name="end_time">
+      <Position>5</Position>
+      <DataType>time|0</DataType>
+    </column>
+    <column id="119" parent="25" name="days_of_week">
+      <Position>6</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <key id="120" parent="25" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>section_ID
+room_number
+building_name</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="121" parent="26" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="122" parent="26" name="enrollment_status">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <key id="123" parent="26" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="124" parent="27" name="student_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="125" parent="27" name="section_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="126" parent="27" name="grade">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="127" parent="27" name="register_status">
+      <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="128" parent="27" name="register_date">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <key id="129" parent="27" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>student_ID
+section_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="130" parent="28" name="user_ID">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="131" parent="28" name="department_ID">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="132" parent="28" name="fk_teachesfor_department_ID_idx">
+      <ColNames>department_ID</ColNames>
+    </index>
+    <key id="133" parent="28" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_ID
+department_ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="134" parent="29" name="course_id">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="135" parent="29" name="name">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="136" parent="29" name="units">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="137" parent="29" name="description">
+      <Position>4</Position>
+      <DataType>varchar(1000)|0</DataType>
+    </column>
+    <column id="138" parent="29" name="department_id">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <key id="139" parent="29" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>course_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="140" parent="30" name="section_id">
+      <Position>1</Position>
+      <DataType>varchar(32)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="141" parent="30" name="section_number">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="142" parent="30" name="year">
+      <Position>3</Position>
+      <DataType>year(4)|0</DataType>
+    </column>
+    <column id="143" parent="30" name="semester">
+      <Position>4</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="144" parent="30" name="start_date">
+      <Position>5</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="145" parent="30" name="end_date">
+      <Position>6</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="146" parent="30" name="course_id">
+      <Position>7</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="147" parent="30" name="instructor_id">
+      <Position>8</Position>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <key id="148" parent="30" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>section_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="149" parent="31" name="user_id">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="150" parent="31" name="password">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="151" parent="31" name="date_joined">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <key id="152" parent="31" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>user_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
