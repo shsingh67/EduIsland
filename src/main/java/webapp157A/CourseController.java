@@ -23,7 +23,7 @@ public class CourseController {
     DepartmentDAO departmentDAO;
 
     @RequestMapping(value ="/showCourse/{courseId}", method = RequestMethod.GET)
-    public ModelAndView showContactInfo(HttpServletRequest request, HttpServletResponse response,
+    public ModelAndView showCourse(HttpServletRequest request, HttpServletResponse response,
                                         @PathVariable("courseId") String courseId) {
         ModelAndView mav = null;
 

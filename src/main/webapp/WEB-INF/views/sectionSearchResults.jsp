@@ -10,10 +10,10 @@
 <table>
 
     <tr>
-        <td> Course Results: </td>
+        <td> Section Results: </td>
     </tr>
 
-    <c:if test="${empty courses}">
+    <c:if test="${empty sections}">
         <tr>
             <td>
                 No results.
@@ -21,14 +21,14 @@
         </tr>
     </c:if>
 
-    <c:if test="${not empty courses}">
+    <c:if test="${not empty sections}">
 
-        <c:forEach items="${courses}" var="course" varStatus="status">
+        <c:forEach items="${sections}" var="section" varStatus="status">
             <tr>
-                <td> <a href="/showCourse/${course.courseId}">Course ID: ${course.courseId.toUpperCase()}</a>  </td>
+                <td> <a href="/showSection/${section.sectionId}">Section #: ${section.sectionNumber}</a>  </td>
             </tr>
             <tr>
-                <td> Course name: ${course.name} </td>
+                <td> Course: ${section.courseId.toUpperCase()} </td>
             </tr>
             </tr>
             <tr>

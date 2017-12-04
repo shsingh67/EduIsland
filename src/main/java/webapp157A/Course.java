@@ -22,6 +22,10 @@ public class Course {
         return courseId;
     }
 
+    public String getCourseIdAllCaps() {
+        return courseId.toUpperCase();
+    }
+
     public String getName() {
         return name;
     }

@@ -18,6 +18,7 @@ import java.util.List;
 @Controller
 public class SearchController {
 
+
     @Autowired
     CourseDAO courseDAO;
 
@@ -70,6 +71,7 @@ public class SearchController {
     public String getGenericForm(HttpServletRequest request, HttpServletResponse response) {
         return "genericSearch";
     }
+
 
     @RequestMapping(value = "/genericSearch", method = RequestMethod.POST)
     public ModelAndView searchStudent(HttpServletRequest request, HttpServletResponse response,

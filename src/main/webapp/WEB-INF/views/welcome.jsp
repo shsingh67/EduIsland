@@ -1,4 +1,5 @@
 <%--This is the page the user sees once they log into their account.--%>
+<%@ page import="webapp157A.User" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +46,16 @@
 </head>
 <body>
 
+<%
+    User user = (User)session.getAttribute("user");
+
+    // Don't let user see this page if not logged in.
+    if(user == null) {
+        response.sendRedirect("home.jsp");
+    }
+
+%>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -58,11 +69,11 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"> <a href="home.jsp">Home</a> </li>
-                <li> <a href="/showContactInfo">My Contact Info</a> </li>
-                <li><a href="#">Projects</a></li>
+                <li><a href="/searchForCourse">Search</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li> <a href="/welcome">${user.fullName}</a> </li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
             </ul>
         </div>
@@ -72,9 +83,9 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-2 sidenav">
-            <p><a href="/search">Search for Courses</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
+            <p><a href="/showContactInfo">Edit My Contact Info</a></p>
+            <p><a href="/searchForCourse">Search for Courses</a></p>
+            <p><a href="/mySectionHistory">My Section History</a></p>
         </div>
         <div class="col-sm-8 text-left">
             <h1>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName} </h1>
@@ -111,11 +122,9 @@
                 <p>${user.adminInfo.departmentAdministers.name}</p>
                 <hr>
             </c:if>
+            <%--<h3>Test </h3>--%>
+            <%--<p>Lorem ipsum...</p>--%>
 
-
-
-            <h3>Test </h3>
-            <p>Lorem ipsum...</p>
         </div>
         <div class="col-sm-2 sidenav">
             <div class="well">
