@@ -33,7 +33,11 @@ public class SearchManager {
         for (Map.Entry<String, String> pair : params.entrySet()) {
             SearchParam sp = SEARCH_PARAMS.get(pair.getKey());
             String query = sp.whereClause(pair.getKey());
-            values.add(pair.getValue());
+            if(pair.getKey().equals("description")) {
+                values.add("%" + pair.getValue() + "%");
+            } else {
+                values.add(pair.getValue());
+            }
             builder.append(query);
             i++;                                    // come up with a better way of doing this, it's okay for now
             if (i < params.size()) {

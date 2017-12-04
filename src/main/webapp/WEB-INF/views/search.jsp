@@ -12,7 +12,7 @@
 
     <div class="container">
          <label><b>Course ID: </b></label>
-         <input type="text" placeholder="Enter course name" name="courseId" required>
+         <input type="text" placeholder="Enter course name" name="courseId" >
 
 
         <label><b>Course Name: </b></label>

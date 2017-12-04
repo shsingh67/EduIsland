@@ -46,7 +46,7 @@ public class SearchController {
 
     @RequestMapping(value = "/searchCourse", method = RequestMethod.POST)
     public ModelAndView searchCourse(HttpServletRequest request, HttpServletResponse response,
-                                     @RequestParam(value = "courseId", required = true) String courseId,
+                                     @RequestParam(value = "courseId", required = false) String courseId,
                                      @RequestParam(value = "name", required = false) String name,
                                      @RequestParam(value = "departmentId", required = false) String departmentId,
                                      @RequestParam(value = "units", required = false) String units,
