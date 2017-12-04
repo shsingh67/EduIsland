@@ -5,13 +5,32 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Section page</title>
+    <title>Enroll in Section</title>
 </head>
 <body>
 
 <% User user = (User)session.getAttribute("user"); %>
 
 <table>
+
+    <tr>
+        <td> Enroll in ${section.sectionId}? </td>
+    </tr>
+
+    <c:if test="${not empty Error}">
+        <tr>
+            <td> Error: ${Error} </td>
+        </tr>
+    </c:if>
+    <c:if test="${not empty SuccessMessage}">
+        <tr>
+            <td> Success: ${SuccessMessage} </td>
+            <%--TODO:--%>
+            <td> <a href="/">View Schedule</a> </td>
+        </tr>
+    </c:if>
+
+
     <tr>
         <td> Section ID: ${section.sectionId} </td>
     </tr>
@@ -38,25 +57,23 @@
     </tr>
 
     <%--if a user is logged in, show Course options (Enroll/Edit): --%>
-    <% if(user != null)  { %>
-
-    <% if(user.isStudent()) { %>
+    <% if(user == null)  { %>
 
     <tr>
-        <td> <a href="/enrollInSection/${section.sectionId}">Enroll</a> </td>
+        <td> Sign in to enroll. </td>
+    </tr>
+
+    <% } // if (user == null) end.%>
+
+    <% if(user != null && user.isStudent()) { %>
+
+    <tr>
+        <td> <a href="/processEnrollInSection/${section.sectionId}">Confirm Enroll</a> </td>
     </tr>
 
     <% } // if student end. %>
 
-    <% if(user.isAdmin()) { %>
 
-    <tr>
-        <td> <a href="/">Edit</a> </td>
-    </tr>
-
-    <% } // if admin end. %>
-
-    <% } // if (user != null) end.%>
 
     <tr>
         <td> <a href="/">Home</a> </td>

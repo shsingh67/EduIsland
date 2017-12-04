@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class SectionDAO {
@@ -24,6 +25,19 @@ public class SectionDAO {
 
     public static final String GET_SECTIONS_WITH_COURSE_ID = "select * from section where course_id = ?";
 
+    public static final String GET_SECTIONS_STUDENT_ENROLLED_IN = "select * " +
+            " from section" +
+            " where section_id IN (select sec.section_id " +
+            " from section sec JOIN StudentTakes  takes ON  sec.section_id = takes.section_ID " +
+            " where takes.student_ID = ? AND takes.register_status = 'Enrolled');";
+
+    public static final String IS_STUDENT_ENROLLED_IN = "select * " +
+            " from section" +
+            " where section_id IN (select sec.section_id " +
+            " from section sec JOIN StudentTakes  takes ON  sec.section_id = takes.section_ID " +
+            " where sec.section_id=? AND takes.student_ID = ? AND takes.register_status = 'Enrolled');";
+
+    public static final String ENROLL_STUDENT = "insert into StudentTakes values(?, ?, ?, ?, ?)";
 
     public Section getSection(String sectionId) {
         List<Section> sections = jdbcTemplate.query(GET_SECTION_FROM_ID, new Object[]{sectionId}, new SectionMapper());
@@ -37,7 +51,24 @@ public class SectionDAO {
         return sections;
     }
 
+    public List<Section> getSectionsStudentEnrolledIn(String studentId) {
+        List<Section> sections = jdbcTemplate.query(GET_SECTIONS_STUDENT_ENROLLED_IN, new Object[]{studentId}, new SectionMapper());
 
+        return sections;
+    }
+
+    public boolean isStudentEnrolledInSection(String sectionId, String studentId) {
+        List<Section> sections = jdbcTemplate.query(IS_STUDENT_ENROLLED_IN, new Object[]{sectionId, studentId}, new SectionMapper());
+
+        System.out.println("DEBUG: SectionDAO: isStudentEnrolledInSection: sections = "+sections); //TODO: remove
+
+        return (sections != null && !sections.isEmpty());
+    }
+
+    public void enrollStudentInSection(String studentId, String sectionId) {
+        Timestamp timeEnrolled = new Timestamp(System.currentTimeMillis());
+        jdbcTemplate.update(ENROLL_STUDENT, new Object[] {studentId, sectionId, "OnGoing", "Enrolled", timeEnrolled});
+    }
 
     public class SectionMapper implements RowMapper {
         public Section mapRow(ResultSet rs, int rowNum) throws SQLException {

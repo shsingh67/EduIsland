@@ -64,7 +64,7 @@ public class User {
 
     public void setAdminInfo(AdminInfo adminInfo) { this.adminInfo = adminInfo; }
 
-    // Other:
+    // User types:
 
     public boolean isStudent()
     {
@@ -74,4 +74,5 @@ public class User {
     public boolean isInstructor() { return (instructorInfo != null); }
 
     public boolean isAdmin() { return (adminInfo != null); }
+
 }

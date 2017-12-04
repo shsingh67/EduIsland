@@ -24,6 +24,13 @@ public class CourseDAO {
 
     public static final String SEARCH_COURSE_FROM_ID = "select * from course where course_id like ?";
 
+    public static final String GET_COURSES_STUDENT_TAKING = "select * " +
+            "from course" +
+            " where course_id IN (select course_id" +
+            " from section sec JOIN StudentTakes takes ON  sec.section_id = takes.section_ID" +
+            " where takes.student_ID = ? AND takes.register_status = 'Enrolled');";
+
+
     public List<Course> getCourse(String sql, Object[] values) {
         List<Course> courses = jdbcTemplate.query(sql, values, new CourseMapper());
         return courses.size() > 0 ? courses : null;
@@ -38,6 +45,13 @@ public class CourseDAO {
     public List<Course> searchForCourses(Course courseInfoEntered) { //TODO: search for more than one field...
         // NOTE: for the LIKE operator, must use '%' pattern here and not in the SQL statement:
         List<Course> courses = jdbcTemplate.query(SEARCH_COURSE_FROM_ID, new Object[]{"%" + courseInfoEntered.getCourseId() + "%"}, new CourseMapper());
+
+        return courses;
+    }
+
+    public List<Course> getCoursesStudentTaking(String studentId) {
+        // NOTE: for the LIKE operator, must use '%' pattern here and not in the SQL statement:
+        List<Course> courses = jdbcTemplate.query(GET_COURSES_STUDENT_TAKING, new Object[]{studentId}, new CourseMapper());
 
         return courses;
     }
