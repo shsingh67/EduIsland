@@ -58,6 +58,26 @@ public class SectionController {
         return mav;
     }
 
+    // View all sections taken (enrolled / taken / dropped):
+    @RequestMapping(value ="/mySectionHistory", method = RequestMethod.GET)
+    public ModelAndView showMySectionHistory(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        if (currentUser == null) {
+            mav = new ModelAndView("home");
+            mav.addObject("Error", "You must be signed in as a Student to view your section history");
+            return mav;
+        }
+
+        List<SectionTaken> sectionsTaken = sectionDAO.getAllStudentSectionsTaken(currentUser.getUserId());
+
+        mav = new ModelAndView("mySectionHistory", "sectionsTaken", sectionsTaken);
+
+        return mav;
+    }
+
     // Enroll:
 
     @RequestMapping(value ="/enrollInSection/{sectionId}", method = RequestMethod.GET)

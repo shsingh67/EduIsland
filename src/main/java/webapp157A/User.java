@@ -75,4 +75,15 @@ public class User {
 
     public boolean isAdmin() { return (adminInfo != null); }
 
+    // Other:
+    public String getFullName() {
+        String fullName = "";
+
+        if (userContactInfo != null) {
+            fullName += userContactInfo.getFirstName() + " " + userContactInfo.getLastName();
+        }
+
+        return fullName;
+    }
+
 }

@@ -21,6 +21,8 @@ public class SectionDAO {
 //    @Autowired
 //    DepartmentDAO departmentDAO; // linked resource.
 
+    // SQL statements:
+
     public static final String GET_SECTION_FROM_ID = "select * from section where section_id = ?";
 
     public static final String GET_SECTIONS_WITH_COURSE_ID = "select * from section where course_id = ?";
@@ -38,6 +40,10 @@ public class SectionDAO {
             " where sec.section_id=? AND takes.student_ID = ? AND takes.register_status = 'Enrolled');";
 
     public static final String ENROLL_STUDENT = "insert into StudentTakes values(?, ?, ?, ?, ?)";
+
+    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?";
+
+    // Methods:
 
     public Section getSection(String sectionId) {
         List<Section> sections = jdbcTemplate.query(GET_SECTION_FROM_ID, new Object[]{sectionId}, new SectionMapper());
@@ -70,6 +76,12 @@ public class SectionDAO {
         jdbcTemplate.update(ENROLL_STUDENT, new Object[] {studentId, sectionId, "OnGoing", "Enrolled", timeEnrolled});
     }
 
+    public List<SectionTaken> getAllStudentSectionsTaken(String studentId) {
+        List<SectionTaken> sectionsTaken = jdbcTemplate.query(GET_STUDENT_TAKES_LIST, new Object[]{studentId}, new SectionTakenMapper());
+
+        return sectionsTaken;
+    }
+
     public class SectionMapper implements RowMapper {
         public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
             Section section = new Section();
@@ -85,6 +97,21 @@ public class SectionDAO {
             // TODO: set Course and Instructor.
 
             return section;
+        }
+    }
+
+    public class SectionTakenMapper implements RowMapper {
+        public SectionTaken mapRow(ResultSet rs, int rowNum) throws SQLException {
+            SectionTaken sectionTaken = new SectionTaken();
+            sectionTaken.setStudentId(rs.getString("student_ID"));
+            sectionTaken.setSectionId(rs.getString("section_ID"));
+            sectionTaken.setGrade(rs.getString("grade"));
+            sectionTaken.setRegisterStatus(rs.getString("register_status"));
+            sectionTaken.setRegistrationDate(rs.getDate("register_date"));
+
+            sectionTaken.setSection(getSection(sectionTaken.getSectionId()));
+
+            return sectionTaken;
         }
     }
 

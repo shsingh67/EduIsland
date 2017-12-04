@@ -19,6 +19,10 @@ public class Course {
 
 
     public String getCourseId() {
+        return courseId;
+    }
+
+    public String getCourseIdAllCaps() {
         return courseId.toUpperCase();
     }
 

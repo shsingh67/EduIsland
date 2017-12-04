@@ -58,11 +58,11 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li class="active"> <a href="home.jsp">Home</a> </li>
-                <li> <a href="/showContactInfo">My Contact Info</a> </li>
-                <li><a href="#">Projects</a></li>
+                <li><a href="/searchForCourse">Search</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li> <a href="/welcome">${user.fullName}</a> </li>
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
             </ul>
         </div>
@@ -72,9 +72,9 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-2 sidenav">
+            <p><a href="/showContactInfo">Edit My Contact Info</a></p>
             <p><a href="/searchForCourse">Search for Courses</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
+            <p><a href="/mySectionHistory">My Section History</a></p>
         </div>
         <div class="col-sm-8 text-left">
             <h1>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName} </h1>

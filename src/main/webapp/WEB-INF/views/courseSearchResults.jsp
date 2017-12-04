@@ -25,7 +25,7 @@
 
         <c:forEach items="${courses}" var="course" varStatus="status">
             <tr>
-                <td> <a href="/showCourse/${course.courseId}">Course ID: ${course.courseId}</a>  </td>
+                <td> <a href="/showCourse/${course.courseId}">Course ID: ${course.courseId.toUpperCase()}</a>  </td>
             </tr>
             <tr>
                 <td> Course name: ${course.name} </td>

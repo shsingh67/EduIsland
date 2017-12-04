@@ -28,7 +28,7 @@
                 <td> <a href="/showSection/${section.sectionId}">Section #: ${section.sectionNumber}</a>  </td>
             </tr>
             <tr>
-                <td> Course: ${section.courseId} </td>
+                <td> Course: ${section.courseId.toUpperCase()} </td>
             </tr>
             </tr>
             <tr>

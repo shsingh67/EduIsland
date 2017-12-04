@@ -31,7 +31,7 @@
         <td> End Date: ${section.endDate} </td>
     </tr>
     <tr>
-        <td> Course ID: ${section.courseId} </td>
+        <td> Course ID: ${section.courseId.toUpperCase()} </td>
     </tr>
     <tr>
         <td> Instructor ID: ${section.instructorId} </td>
