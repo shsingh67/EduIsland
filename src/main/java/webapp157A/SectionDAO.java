@@ -30,6 +30,10 @@ public class SectionDAO {
 
     public static final String GET_SECTIONS_WITH_COURSE_ID = "select * from section where course_id = ?";
 
+    public static final String GET_SECTIONS_INSTUCTOR_HAS_TAUGHT = "select * from section where instructor_id = ?";
+
+    public static final String GET_SECTIONS_INSTUCTOR_TEACHING_IN_SEMESTER = "select * from section where instructor_id = ? AND semester = ? AND year = ?";
+
     public static final String GET_SECTIONS_STUDENT_ENROLLED_IN = "select * " +
             " from section" +
             " where section_id IN (select sec.section_id " +
@@ -63,6 +67,18 @@ public class SectionDAO {
 
     public List<Section> getSectionsStudentEnrolledIn(String studentId) {
         List<Section> sections = jdbcTemplate.query(GET_SECTIONS_STUDENT_ENROLLED_IN, new Object[]{studentId}, new SectionMapper());
+
+        return sections;
+    }
+
+    public List<Section> getSectionsInstructorHasTaught(String studentId) {
+        List<Section> sections = jdbcTemplate.query(GET_SECTIONS_INSTUCTOR_HAS_TAUGHT, new Object[]{studentId}, new SectionMapper());
+
+        return sections;
+    }
+
+    public List<Section> getSectionsInstructorTeachingForSemester(String instructorId, String semester, int year) {
+        List<Section> sections = jdbcTemplate.query(GET_SECTIONS_INSTUCTOR_TEACHING_IN_SEMESTER, new Object[]{instructorId, semester, year}, new SectionMapper());
 
         return sections;
     }

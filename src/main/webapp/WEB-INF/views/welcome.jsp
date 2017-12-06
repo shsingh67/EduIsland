@@ -89,6 +89,10 @@
                 <p><a href="/myScedule">My Schedule</a></p>
                 <p><a href="/mySectionHistory">My Section History</a></p>
             </c:if>
+            <c:if test="${user.instructor}">
+                <p><a href="/myTeachingScedule">My Teaching Schedule</a></p>
+                <p><a href="/mySectionsTaughtHistory">My Sections Taught History</a></p>
+            </c:if>
         </div>
         <div class="col-sm-8 text-left">
             <h1>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName} </h1>
@@ -109,13 +113,14 @@
                 <h4>Position:  </h4>
                 <p>${user.instructorInfo.position}</p>
                 <h4>Department teaches for:  </h4>
-                <p>${user.instructorInfo.departmentTeachesFor.name}</p>
+                <p><a href="/showDepartment/${user.instructorInfo.departmentTeachesFor.departmentId}">${user.instructorInfo.departmentTeachesFor.name}</a></p>
                 <h4>Biography:  </h4>
                 <p>${user.instructorInfo.biography}</p>
                 <h4>Photo:  </h4>
                 <p>${user.instructorInfo.photo}</p>
                 <h4> <a href="/editInstructorInfo">Edit</a> </h4>
                 <hr>
+                <p><a href="/myTeachingScedule">My Teaching Schedule</a></p>
             </c:if>
             <%--  Admin Info:  --%>
             <c:if test="${user.admin}">

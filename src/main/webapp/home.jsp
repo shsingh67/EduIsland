@@ -49,8 +49,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <% if (user != null) { %>
                     <li> <a href="/welcome">${user.fullName}</a> </li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                <% } else { %>
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
                 <% } %>
-                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
             </ul>
         </div>
     </div>

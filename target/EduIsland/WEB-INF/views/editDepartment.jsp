@@ -13,10 +13,11 @@
     <div class="container">
 
         <label><b>Department ID: </b></label>
+        <%--<input type="text" placeholder="" name="departmentId" value="${departmentEditing.departmentId}" readonly required>--%>
         <input type="text" placeholder="" name="departmentId" value="${departmentEditing.departmentId}" readonly required>
 
         <label><b>Department name: </b></label>
-            <%--NOTE: "name" attribute corresponds to field "firstName" of new contactInfo object passed in:--%>
+            <%--NOTE: "name=" tag-attribute corresponds to field "name" of departmentEditing object passed in (name must match CLASS name!):--%>
         <input type="text" placeholder="Enter department name" name="name" value="${departmentEditing.name}" required>
 
         <label><b>Department Abbreviation: </b></label>

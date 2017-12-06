@@ -1,4 +1,4 @@
-<%--This page shows info about the course passed in.--%>
+<%--This page shows info about the department passed in.--%>
 <%@ page import="webapp157A.User" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html >
