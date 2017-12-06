@@ -18,8 +18,11 @@ public class SectionDAO {
     @Autowired
     DataSource dataSource;
 
-//    @Autowired
-//    DepartmentDAO departmentDAO; // linked resource.
+    @Autowired
+    CourseDAO courseDAO; // linked resource.
+
+    @Autowired
+    UserDAO userDAO; // linked resource.
 
     // SQL statements:
 
@@ -94,7 +97,8 @@ public class SectionDAO {
             section.setCourseId(rs.getString("course_id"));
             section.setInstructorId(rs.getString("instructor_id"));
 
-            // TODO: set Course and Instructor.
+            setCourseInfo(section);
+            setInstructorInfo(section);
 
             return section;
         }
@@ -117,12 +121,19 @@ public class SectionDAO {
 
     // private members:
 
-    // adds admin info if any exists in database for this user (null if not a student):
-//    private void setDepartmentInfo(Section section)
-//    {
-//        if (section != null) {
-//            Department department = departmentDAO.getDepartmentOfCourse(section.getCourseId());
-//            section.setDepartment(department);
-//        }
-//    }
+    private void setCourseInfo(Section section)
+    {
+        if (section != null) {
+            Course course = courseDAO.getCourse(section.getCourseId());
+            section.setCourse(course);
+        }
+    }
+
+    private void setInstructorInfo(Section section)
+    {
+        if (section != null) {
+            User instructor = userDAO.getInstructorWhoTeaches(section.getSectionId());
+            section.setInstructor(instructor);
+        }
+    }
 }

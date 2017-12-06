@@ -31,10 +31,10 @@
         <td> End Date: ${section.endDate} </td>
     </tr>
     <tr>
-        <td> Course ID: ${section.courseId.toUpperCase()} </td>
+        <td> Course: <a href="/showCourse/${section.courseId}">${section.courseId.toUpperCase()}</a> </td>
     </tr>
     <tr>
-        <td> Instructor ID: ${section.instructorId} </td>
+        <td> Instructor: ${section.instructor.fullName} </td>
     </tr>
 
     <%--if a user is logged in, show Course options (Enroll/Edit): --%>

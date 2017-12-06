@@ -13,7 +13,7 @@
 
 <table>
     <tr>
-        <td> Course ID: ${course.courseId} </td>
+        <td> Course ID: ${course.courseId.toUpperCase()} </td>
     </tr>
     <tr>
         <td> Course name: ${course.name} </td>
@@ -36,7 +36,7 @@
         <table>
             <c:forEach items="${prereqs}" var="prereq" varStatus="status">
                 <tr>
-                    <td> <a href="/showCourse/${prereq.courseId}">${prereq.courseId}</a>: ${prereq.name} </td>
+                    <td> <a href="/showCourse/${prereq.courseId}">${prereq.courseId.toUpperCase()}</a>: ${prereq.name} </td>
                 </tr>
             </c:forEach>
         </table>

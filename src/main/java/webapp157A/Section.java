@@ -13,6 +13,9 @@ public class Section {
     private String courseId;
     private String instructorId;
 
+    private Course course;
+    private User instructor;
+
     // Getters and Setters:
 
     public String getSectionId() { return sectionId; }
@@ -38,4 +41,10 @@ public class Section {
 
     public String getInstructorId() { return instructorId; }
     public void setInstructorId(String instructorId) { this.instructorId = instructorId; }
+
+    public Course getCourse() { return course; }
+    public void setCourse(Course course) { this.course = course; }
+
+    public User getInstructor() { return instructor; }
+    public void setInstructor(User instructor) { this.instructor = instructor; }
 }
