@@ -93,6 +93,9 @@
                 <p><a href="/myTeachingScedule">My Teaching Schedule</a></p>
                 <p><a href="/mySectionsTaughtHistory">My Sections Taught History</a></p>
             </c:if>
+            <c:if test="${user.admin}">
+                <p><a href="/genericForm">Find People</a></p>
+            </c:if>
         </div>
         <div class="col-sm-8 text-left">
             <h1>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName} </h1>

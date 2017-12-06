@@ -84,15 +84,14 @@ public class SearchController {
 
         ModelAndView mav = new ModelAndView("genricSearchView");
         Object[] values = new Object[]{firstName, lastName, emailAddress};
-        ContactInfo contactInfo = contactInfoDAO.getInfoFirstAndLastAndEmail(values);
-        if (contactInfo != null) {
-            mav.addObject("contactInfo", contactInfo);
-            User user = userDAO.getUserByContactId(contactInfo.getContactId());
-            mav.addObject("user", user);
-        } else { // search not found
-            mav.addObject("Error", "No such entry exists");
+        List<ContactInfo> contactInfos = contactInfoDAO.getInfoFirstAndLastAndEmail(values);
 
+        List<User> users = new ArrayList<User>();
+        for (ContactInfo contactInfo : contactInfos) {
+            users.add(userDAO.getUserByContactId(contactInfo.getContactId()));
         }
+
+        mav.addObject("users", users);
 
         return mav;
     }
