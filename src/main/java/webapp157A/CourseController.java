@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class CourseController {
@@ -30,7 +31,11 @@ public class CourseController {
         Course course = courseDAO.getCourse(courseId);
 
         if (course != null) {
+
+            List<Course> prereqs = courseDAO.getAllPrerequisites(course.getCourseId());
+
             mav = new ModelAndView("showCourse", "course", course);
+            mav.addObject("prereqs", prereqs);
         } else { // course not found page
             mav = new ModelAndView("resourceNotFound", "resource", "Course");
             mav.addObject("Error", "No course found with ID = " + courseId);

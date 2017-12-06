@@ -28,6 +28,20 @@
         <td> Department: ${course.department.name} </td>
     </tr>
 
+    <c:if test="${not empty prereqs}">
+        <tr>
+            <td> Prerequisites: </td>
+        </tr>
+
+        <table>
+            <c:forEach items="${prereqs}" var="prereq" varStatus="status">
+                <tr>
+                    <td> <a href="/showCourse/${prereq.courseId}">${prereq.courseId}</a>: ${prereq.name} </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+
     <tr>
         <td> <a href="/showSectionsOfCourse/${course.courseId}">View Sections</a> </td>
     </tr>
