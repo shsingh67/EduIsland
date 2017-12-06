@@ -17,6 +17,13 @@
         body {
             background-color: royalblue;
         }
+        /* Set background color to royalblue, white text and some padding */
+        footer {
+            background-color: royalblue;
+            color: white;
+            padding: 15px;
+        }
+
         .gi-2x{font-size: 2em;}
         .gi-3x{font-size: 3em;}
         .gi-4x{font-size: 4em;}
@@ -37,11 +44,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="home.jsp">EduControl</a>
+            <a class="navbar-brand" href="home.jsp"><span class="glyphicon glyphicon-education"></span> EduControl</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-education"></span></a></li>
                 <li class="active"> <a href="home.jsp">Home</a> </li>
                 <li><a href="/search">Search</a></li>
                 <li><a href="#">Contact</a></li>
@@ -71,6 +77,9 @@
     </form>
 </div>
 
+<footer class="container-fluid text-center">
+    <p> Brought to you by Timothy Davis, Sharandeep Singh, Su P. Tun </p>
+</footer>
 
 
 </body>

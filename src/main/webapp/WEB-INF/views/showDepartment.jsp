@@ -22,7 +22,7 @@
         <td> Part of the College of ${department.collegeName} </td>
     </tr>
     <tr>
-        <td> Located in ${department.roomNumber} ${department.buildingName} </td>
+        <td> Department Office Location: ${department.roomNumber} ${department.buildingName} </td>
     </tr>
 
     <%--if a user is logged in, show Course options (Enroll/Edit): --%>
