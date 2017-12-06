@@ -54,7 +54,7 @@ public class LoginController {
 
         } else {
             mav = new ModelAndView("login");
-            mav.addObject("Error", "Incorrect UserName or Password");
+            mav.addObject("Error", "Incorrect User ID or Password");
         }
         return mav;
     }

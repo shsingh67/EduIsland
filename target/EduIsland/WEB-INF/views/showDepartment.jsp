@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Section page</title>
+    <title>${department.name} Department page</title>
 </head>
 <body>
 
@@ -13,42 +13,26 @@
 
 <table>
     <tr>
-        <td> Course: <a href="/showCourse/${section.courseId}">${section.courseId.toUpperCase()}</a> </td>
+        <td> Department of ${department.name} </td>
     </tr>
     <tr>
-        <td> Section Number: ${section.sectionNumber} </td>
+        <td> Abbreviation: ${department.abbreviation} </td>
     </tr>
     <tr>
-        <td> Year: ${section.year} </td>
+        <td> Part of the College of ${department.collegeName} </td>
     </tr>
     <tr>
-        <td> Semester: ${section.semester} </td>
-    </tr>
-    <tr>
-        <td> Start Date: ${section.startDate} </td>
-    </tr>
-    <tr>
-        <td> End Date: ${section.endDate} </td>
-    </tr>
-    <tr>
-        <td> Instructor: ${section.instructor.fullName} </td>
+        <td> Located in ${department.roomNumber} ${department.buildingName} </td>
     </tr>
 
     <%--if a user is logged in, show Course options (Enroll/Edit): --%>
     <% if(user != null)  { %>
 
-    <% if(user.isStudent()) { %>
-
-    <tr>
-        <td> <a href="/enrollInSection/${section.sectionId}">Enroll</a> </td>
-    </tr>
-
-    <% } // if student end. %>
 
     <% if(user.isAdmin()) { %>
 
     <tr>
-        <td> <a href="/">Edit</a> </td>
+        <td> <a href="/editDepartment/${department.departmentId}">Edit</a> </td>
     </tr>
 
     <% } // if admin end. %>

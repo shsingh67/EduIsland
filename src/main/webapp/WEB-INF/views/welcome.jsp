@@ -123,7 +123,7 @@
                 <h4>Title:  </h4>
                 <p>${user.adminInfo.title}</p>
                 <h4>Department administers for:  </h4>
-                <p>${user.adminInfo.departmentAdministers.name}</p>
+                <p><a href="/showDepartment/${user.adminInfo.departmentAdministers.departmentId}">${user.adminInfo.departmentAdministers.name}</a></p>
                 <hr>
             </c:if>
             <%--<h3>Test </h3>--%>

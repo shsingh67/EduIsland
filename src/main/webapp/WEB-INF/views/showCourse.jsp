@@ -25,7 +25,7 @@
         <td> Description: ${course.description} </td>
     </tr>
     <tr>
-        <td> Department: ${course.department.name} </td>
+        <td> Department: <a href="/showDepartment/${course.departmentId}">${course.department.name}</a> </td>
     </tr>
 
     <c:if test="${not empty prereqs}">
