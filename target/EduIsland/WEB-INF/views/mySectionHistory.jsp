@@ -4,19 +4,19 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Course Results</title>
+    <title>My Sections</title>
 </head>
 <body>
 <table>
 
     <tr>
-        <td> All Sections Enrolled / Taken / Dropped: </td>
+        <td> ${ResultTitle} </td>
     </tr>
 
     <c:if test="${empty sectionsTaken}">
         <tr>
             <td>
-                No results.
+                You have not enrolled in any sections yet.
             </td>
         </tr>
     </c:if>

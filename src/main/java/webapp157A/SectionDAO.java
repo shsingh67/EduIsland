@@ -44,7 +44,8 @@ public class SectionDAO {
 
     public static final String ENROLL_STUDENT = "insert into StudentTakes values(?, ?, ?, ?, ?)";
 
-    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?";
+    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?;";
+    public static final String GET_STUDENT_TAKES_LIST_WHERE_REG_STATUS = "select * from StudentTakes where student_ID = ? AND register_status = ?;";
 
     // Methods:
 
@@ -69,8 +70,6 @@ public class SectionDAO {
     public boolean isStudentEnrolledInSection(String sectionId, String studentId) {
         List<Section> sections = jdbcTemplate.query(IS_STUDENT_ENROLLED_IN, new Object[]{sectionId, studentId}, new SectionMapper());
 
-        System.out.println("DEBUG: SectionDAO: isStudentEnrolledInSection: sections = "+sections); //TODO: remove
-
         return (sections != null && !sections.isEmpty());
     }
 
@@ -81,6 +80,12 @@ public class SectionDAO {
 
     public List<SectionTaken> getAllStudentSectionsTaken(String studentId) {
         List<SectionTaken> sectionsTaken = jdbcTemplate.query(GET_STUDENT_TAKES_LIST, new Object[]{studentId}, new SectionTakenMapper());
+
+        return sectionsTaken;
+    }
+
+    public List<SectionTaken> getEnrolledStudentSectionsTaken(String studentId) {
+        List<SectionTaken> sectionsTaken = jdbcTemplate.query(GET_STUDENT_TAKES_LIST_WHERE_REG_STATUS, new Object[]{studentId, "Enrolled"}, new SectionTakenMapper());
 
         return sectionsTaken;
     }

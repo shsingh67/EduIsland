@@ -74,6 +74,28 @@ public class SectionController {
         List<SectionTaken> sectionsTaken = sectionDAO.getAllStudentSectionsTaken(currentUser.getUserId());
 
         mav = new ModelAndView("mySectionHistory", "sectionsTaken", sectionsTaken);
+        mav.addObject("ResultTitle", "All Sections Enrolled / Taken / Dropped:");
+
+        return mav;
+    }
+
+    // View all sections taken (enrolled / taken / dropped):
+    @RequestMapping(value ="/myScedule", method = RequestMethod.GET)
+    public ModelAndView showMySchedule(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        if (currentUser == null) {
+            mav = new ModelAndView("home");
+            mav.addObject("Error", "You must be signed in as a Student to view your section history");
+            return mav;
+        }
+
+        List<SectionTaken> sectionsTaken = sectionDAO.getEnrolledStudentSectionsTaken(currentUser.getUserId());
+
+        mav = new ModelAndView("mySectionHistory", "sectionsTaken", sectionsTaken);
+        mav.addObject("ResultTitle", "My Schedule");
 
         return mav;
     }
