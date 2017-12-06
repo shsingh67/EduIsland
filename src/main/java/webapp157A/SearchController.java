@@ -57,12 +57,15 @@ public class SearchController {
         String sql = SearchManager.buildCourseQuery();
         Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
         List<Course> courses = courseDAO.getCourse(sql, values);
-        if (courses != null) {
-            mav = new ModelAndView("courseSearchResults", "courses", courses);
-        } else { // course not found page:
-            mav = new ModelAndView("resourceNotFound", "resource", "Course");
-            mav.addObject("Error", "No course found with ID = " + courseId);
-        }
+//        if (courses != null) {
+//            mav = new ModelAndView("courseSearchResults", "courses", courses);
+//        } else { // course not found page:
+//            mav = new ModelAndView("resourceNotFound", "resource", "Course");
+//            mav.addObject("Error", "No course found with ID = " + courseId);
+//        }
+
+        mav = new ModelAndView("courseSearchResults", "courses", courses);
+
         return mav;
 
     }

@@ -85,11 +85,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="home.jsp">EduControl</a>
+            <a class="navbar-brand" href="home.jsp"><span class="glyphicon glyphicon-education"></span> EduControl</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="home.jsp"><span class="glyphicon glyphicon-education"></span></a></li>
                 <li class="active"> <a href="home.jsp">Home</a> </li>
                 <li><a href="/search">Search</a></li>
                 <li><a href="#">Contact</a></li>
@@ -130,7 +129,7 @@
         <c:forEach items="${courses}" var="course" varStatus="status">
             <tr>
                 <td> <a href="/showCourse/${course.courseId}">${course.courseId.toUpperCase()}</a> </td>
-                <td>${course.name}</td>
+                <td><a href="/showCourse/${course.courseId}">${course.name}</a></td>
                 <td>${course.numUnits}</td>
                 <td> <a href="/showDepartment/${course.departmentId}">${course.department.name}</a></td>
             </tr>
@@ -139,5 +138,9 @@
     </c:if>
 
 </table>
+
+<%-- a link that looks like a button: --%>
+<a href="/search" class="btn btn-default"> Back to Search </a>
+
 </body>
 </html>

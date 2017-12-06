@@ -42,8 +42,7 @@
     <c:if test="${not empty SuccessMessage}">
         <tr>
             <td> Success: ${SuccessMessage} </td>
-            <%--TODO:--%>
-            <td> <a href="/">View Schedule</a> </td>
+            <td> <a href="/myScedule">View Schedule</a> </td>
         </tr>
     </c:if>
 

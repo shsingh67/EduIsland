@@ -51,6 +51,9 @@ public class SectionDAO {
     public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?;";
     public static final String GET_STUDENT_TAKES_LIST_WHERE_REG_STATUS = "select * from StudentTakes where student_ID = ? AND register_status = ?;";
 
+
+    public static final String GET_SECTION_TAUGHT_AT_INFO = "select * from SectionTaughtAt where section_ID = ?";
+
     // Methods:
 
     public Section getSection(String sectionId) {
@@ -106,6 +109,12 @@ public class SectionDAO {
         return sectionsTaken;
     }
 
+    public SectionTaughtAtInfo getSectionTaughtAtInfo(String sectionId) {
+        List<SectionTaughtAtInfo> sectionTaughtAtInfoList = jdbcTemplate.query(GET_SECTION_TAUGHT_AT_INFO, new Object[]{sectionId}, new SectionTaughtAtInfoMapper());
+
+        return sectionTaughtAtInfoList.size() > 0 ? sectionTaughtAtInfoList.get(0) : null; // get only first matching result.
+    }
+
     public class SectionMapper implements RowMapper {
         public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
             Section section = new Section();
@@ -120,6 +129,7 @@ public class SectionDAO {
 
             setCourseInfo(section);
             setInstructorInfo(section);
+            setSectionTaughtAtInfo(section);
 
             return section;
         }
@@ -140,6 +150,20 @@ public class SectionDAO {
         }
     }
 
+    public class SectionTaughtAtInfoMapper implements RowMapper {
+        public SectionTaughtAtInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+            SectionTaughtAtInfo sectionTaughtAtInfo = new SectionTaughtAtInfo();
+            sectionTaughtAtInfo.setSectionId(rs.getString("section_ID"));
+            sectionTaughtAtInfo.setRoomNumber(rs.getInt("room_number"));
+            sectionTaughtAtInfo.setBuildingName(rs.getString("building_name"));
+            sectionTaughtAtInfo.setStartTime(rs.getTime("start_time"));
+            sectionTaughtAtInfo.setEndTime(rs.getTime("end_time"));
+            sectionTaughtAtInfo.setDaysOfWeek(rs.getString("days_of_week"));
+
+            return sectionTaughtAtInfo;
+        }
+    }
+
     // private members:
 
     private void setCourseInfo(Section section)
@@ -155,6 +179,14 @@ public class SectionDAO {
         if (section != null) {
             User instructor = userDAO.getInstructorWhoTeaches(section.getSectionId());
             section.setInstructor(instructor);
+        }
+    }
+
+    private void setSectionTaughtAtInfo(Section section)
+    {
+        if (section != null) {
+            SectionTaughtAtInfo sectionTaughtAtInfo = getSectionTaughtAtInfo(section.getSectionId());
+            section.setSectionTaughtAtInfo(sectionTaughtAtInfo);
         }
     }
 }

@@ -15,6 +15,7 @@ public class Section {
 
     private Course course;
     private User instructor;
+    private SectionTaughtAtInfo sectionTaughtAtInfo;
 
     // Getters and Setters:
 
@@ -47,4 +48,7 @@ public class Section {
 
     public User getInstructor() { return instructor; }
     public void setInstructor(User instructor) { this.instructor = instructor; }
+
+    public SectionTaughtAtInfo getSectionTaughtAtInfo() { return sectionTaughtAtInfo; }
+    public void setSectionTaughtAtInfo(SectionTaughtAtInfo sectionTaughtAtInfo) { this.sectionTaughtAtInfo = sectionTaughtAtInfo; }
 }
