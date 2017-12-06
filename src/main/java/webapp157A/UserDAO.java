@@ -27,10 +27,17 @@ public class UserDAO {
     @Autowired
     AdminDAO adminDAO;
 
+    // SQL statements:
+
     public static final String REGISTER_USER = "insert into user values(?, ?, ?)";
     public static final String VALIDATE_USER = "select * from user where user_id = ? and password = ?";
 
     public static final String GET_USER_BY_CONTACT_ID = "select * from user where user_id = (select user_ID from HasContactInfo where contact_ID = ?)";
+
+    public static final String GET_INSTRUCTOR_WHO_TEACHES = "select * from user where user_id = (select instructor_id from section where section_id = ?);";
+
+
+    // Methods:
 
     public void register(User user) {
         jdbcTemplate.update(REGISTER_USER, new Object[] {user.getUserId(), user.getPassword(), user.getDatejoined()});
@@ -44,6 +51,11 @@ public class UserDAO {
 
     public User getUserByContactId(String contactId) {
         List<User> users = jdbcTemplate.query(GET_USER_BY_CONTACT_ID, new Object[]{contactId}, new UserMapper());
+        return users.size() > 0 ? users.get(0) : null;
+    }
+
+    public User getInstructorWhoTeaches(String sectionId) {
+        List<User> users = jdbcTemplate.query(GET_INSTRUCTOR_WHO_TEACHES, new Object[]{sectionId}, new UserMapper());
         return users.size() > 0 ? users.get(0) : null;
     }
 

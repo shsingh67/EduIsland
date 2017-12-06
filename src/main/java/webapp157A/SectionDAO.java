@@ -18,14 +18,21 @@ public class SectionDAO {
     @Autowired
     DataSource dataSource;
 
-//    @Autowired
-//    DepartmentDAO departmentDAO; // linked resource.
+    @Autowired
+    CourseDAO courseDAO; // linked resource.
+
+    @Autowired
+    UserDAO userDAO; // linked resource.
 
     // SQL statements:
 
     public static final String GET_SECTION_FROM_ID = "select * from section where section_id = ?";
 
     public static final String GET_SECTIONS_WITH_COURSE_ID = "select * from section where course_id = ?";
+
+    public static final String GET_SECTIONS_INSTUCTOR_HAS_TAUGHT = "select * from section where instructor_id = ?";
+
+    public static final String GET_SECTIONS_INSTUCTOR_TEACHING_IN_SEMESTER = "select * from section where instructor_id = ? AND semester = ? AND year = ?";
 
     public static final String GET_SECTIONS_STUDENT_ENROLLED_IN = "select * " +
             " from section" +
@@ -41,7 +48,11 @@ public class SectionDAO {
 
     public static final String ENROLL_STUDENT = "insert into StudentTakes values(?, ?, ?, ?, ?)";
 
-    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?";
+    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?;";
+    public static final String GET_STUDENT_TAKES_LIST_WHERE_REG_STATUS = "select * from StudentTakes where student_ID = ? AND register_status = ?;";
+
+
+    public static final String GET_SECTION_TAUGHT_AT_INFO = "select * from SectionTaughtAt where section_ID = ?";
 
     // Methods:
 
@@ -63,10 +74,20 @@ public class SectionDAO {
         return sections;
     }
 
+    public List<Section> getSectionsInstructorHasTaught(String studentId) {
+        List<Section> sections = jdbcTemplate.query(GET_SECTIONS_INSTUCTOR_HAS_TAUGHT, new Object[]{studentId}, new SectionMapper());
+
+        return sections;
+    }
+
+    public List<Section> getSectionsInstructorTeachingForSemester(String instructorId, String semester, int year) {
+        List<Section> sections = jdbcTemplate.query(GET_SECTIONS_INSTUCTOR_TEACHING_IN_SEMESTER, new Object[]{instructorId, semester, year}, new SectionMapper());
+
+        return sections;
+    }
+
     public boolean isStudentEnrolledInSection(String sectionId, String studentId) {
         List<Section> sections = jdbcTemplate.query(IS_STUDENT_ENROLLED_IN, new Object[]{sectionId, studentId}, new SectionMapper());
-
-        System.out.println("DEBUG: SectionDAO: isStudentEnrolledInSection: sections = "+sections); //TODO: remove
 
         return (sections != null && !sections.isEmpty());
     }
@@ -82,6 +103,18 @@ public class SectionDAO {
         return sectionsTaken;
     }
 
+    public List<SectionTaken> getEnrolledStudentSectionsTaken(String studentId) {
+        List<SectionTaken> sectionsTaken = jdbcTemplate.query(GET_STUDENT_TAKES_LIST_WHERE_REG_STATUS, new Object[]{studentId, "Enrolled"}, new SectionTakenMapper());
+
+        return sectionsTaken;
+    }
+
+    public SectionTaughtAtInfo getSectionTaughtAtInfo(String sectionId) {
+        List<SectionTaughtAtInfo> sectionTaughtAtInfoList = jdbcTemplate.query(GET_SECTION_TAUGHT_AT_INFO, new Object[]{sectionId}, new SectionTaughtAtInfoMapper());
+
+        return sectionTaughtAtInfoList.size() > 0 ? sectionTaughtAtInfoList.get(0) : null; // get only first matching result.
+    }
+
     public class SectionMapper implements RowMapper {
         public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
             Section section = new Section();
@@ -94,7 +127,9 @@ public class SectionDAO {
             section.setCourseId(rs.getString("course_id"));
             section.setInstructorId(rs.getString("instructor_id"));
 
-            // TODO: set Course and Instructor.
+            setCourseInfo(section);
+            setInstructorInfo(section);
+            setSectionTaughtAtInfo(section);
 
             return section;
         }
@@ -115,14 +150,43 @@ public class SectionDAO {
         }
     }
 
+    public class SectionTaughtAtInfoMapper implements RowMapper {
+        public SectionTaughtAtInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+            SectionTaughtAtInfo sectionTaughtAtInfo = new SectionTaughtAtInfo();
+            sectionTaughtAtInfo.setSectionId(rs.getString("section_ID"));
+            sectionTaughtAtInfo.setRoomNumber(rs.getInt("room_number"));
+            sectionTaughtAtInfo.setBuildingName(rs.getString("building_name"));
+            sectionTaughtAtInfo.setStartTime(rs.getTime("start_time"));
+            sectionTaughtAtInfo.setEndTime(rs.getTime("end_time"));
+            sectionTaughtAtInfo.setDaysOfWeek(rs.getString("days_of_week"));
+
+            return sectionTaughtAtInfo;
+        }
+    }
+
     // private members:
 
-    // adds admin info if any exists in database for this user (null if not a student):
-//    private void setDepartmentInfo(Section section)
-//    {
-//        if (section != null) {
-//            Department department = departmentDAO.getDepartmentOfCourse(section.getCourseId());
-//            section.setDepartment(department);
-//        }
-//    }
+    private void setCourseInfo(Section section)
+    {
+        if (section != null) {
+            Course course = courseDAO.getCourse(section.getCourseId());
+            section.setCourse(course);
+        }
+    }
+
+    private void setInstructorInfo(Section section)
+    {
+        if (section != null) {
+            User instructor = userDAO.getInstructorWhoTeaches(section.getSectionId());
+            section.setInstructor(instructor);
+        }
+    }
+
+    private void setSectionTaughtAtInfo(Section section)
+    {
+        if (section != null) {
+            SectionTaughtAtInfo sectionTaughtAtInfo = getSectionTaughtAtInfo(section.getSectionId());
+            section.setSectionTaughtAtInfo(sectionTaughtAtInfo);
+        }
+    }
 }

@@ -13,31 +13,34 @@
         <td> ${ResultTitle} </td>
     </tr>
 
-    <c:if test="${empty sectionsTaken}">
+    <c:if test="${empty sectionsTaught}">
         <tr>
             <td>
-                You have not enrolled in any sections yet.
+                You have not taught any sections yet.
             </td>
         </tr>
     </c:if>
 
-    <c:if test="${not empty sectionsTaken}">
+    <c:if test="${not empty sectionsTaught}">
 
-        <c:forEach items="${sectionsTaken}" var="sectionTaken" varStatus="status">
+        <c:forEach items="${sectionsTaught}" var="section" varStatus="status">
             <tr>
-                <td> <a href="/showCourse/${sectionTaken.section.courseId}">Course: ${sectionTaken.section.courseId.toUpperCase()}</a> </td>
+                <td> Course: <a href="/showCourse/${section.courseId}">${section.courseId.toUpperCase()}</a> </td>
             </tr>
             <tr>
-                <td> <a href="/showSection/${sectionTaken.section.sectionId}">Section #: ${sectionTaken.section.sectionNumber}</a> </td>
+                <td> <a href="/showSection/${section.sectionId}">Section #: ${section.sectionNumber}</a>  </td>
             </tr>
             <tr>
-                <td> Status: ${sectionTaken.registerStatus}  </td>
+                <td> Year: ${section.year} </td>
             </tr>
             <tr>
-                <td> Grade: ${sectionTaken.grade}  </td>
+                <td> Semester: ${section.semester} </td>
             </tr>
             <tr>
-                <td> Date Enrolled: ${sectionTaken.registrationDate}  </td>
+                <td> Start Date: ${section.startDate} </td>
+            </tr>
+            <tr>
+                <td> End Date: ${section.endDate} </td>
             </tr>
             <tr>
                 <td> ----------------------------- </td>

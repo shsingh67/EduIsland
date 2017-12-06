@@ -64,7 +64,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="home.jsp"><span class="glyphicon glyphicon-education"></span> EduControl</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -85,18 +85,26 @@
         <div class="col-sm-2 sidenav">
             <p><a href="/showContactInfo">Edit My Contact Info</a></p>
             <p><a href="/search">Search for Courses</a></p>
-            <p><a href="/mySectionHistory">My Section History</a></p>
+            <c:if test="${user.student}">
+                <p><a href="/myScedule">My Schedule</a></p>
+                <p><a href="/mySectionHistory">My Section History</a></p>
+            </c:if>
+            <c:if test="${user.instructor}">
+                <p><a href="/myTeachingScedule">My Teaching Schedule</a></p>
+                <p><a href="/mySectionsTaughtHistory">My Sections Taught History</a></p>
+            </c:if>
         </div>
         <div class="col-sm-8 text-left">
             <h1>Welcome ${user.userContactInfo.firstName} ${user.userContactInfo.lastName} </h1>
             <h3>User ID: ${user.userId} </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>This is your account page.</p>
             <hr>
             <%--  Student / Instructo / Admin Info:  --%>
             <%--  Student Info:  --%>
             <c:if test="${user.student}">
                 <h3>Student Status:  </h3>
                 <p>${user.studentInfo.enrollmentStatus}</p>
+                <p><a href="/myScedule">My Schedule</a></p>
                 <hr>
             </c:if>
             <%--  Instructor Info:  --%>
@@ -105,13 +113,14 @@
                 <h4>Position:  </h4>
                 <p>${user.instructorInfo.position}</p>
                 <h4>Department teaches for:  </h4>
-                <p>${user.instructorInfo.departmentTeachesFor.name}</p>
+                <p><a href="/showDepartment/${user.instructorInfo.departmentTeachesFor.departmentId}">${user.instructorInfo.departmentTeachesFor.name}</a></p>
                 <h4>Biography:  </h4>
                 <p>${user.instructorInfo.biography}</p>
                 <h4>Photo:  </h4>
                 <p>${user.instructorInfo.photo}</p>
                 <h4> <a href="/editInstructorInfo">Edit</a> </h4>
                 <hr>
+                <p><a href="/myTeachingScedule">My Teaching Schedule</a></p>
             </c:if>
             <%--  Admin Info:  --%>
             <c:if test="${user.admin}">
@@ -119,7 +128,7 @@
                 <h4>Title:  </h4>
                 <p>${user.adminInfo.title}</p>
                 <h4>Department administers for:  </h4>
-                <p>${user.adminInfo.departmentAdministers.name}</p>
+                <p><a href="/showDepartment/${user.adminInfo.departmentAdministers.departmentId}">${user.adminInfo.departmentAdministers.name}</a></p>
                 <hr>
             </c:if>
             <%--<h3>Test </h3>--%>

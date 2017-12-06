@@ -74,8 +74,82 @@ public class SectionController {
         List<SectionTaken> sectionsTaken = sectionDAO.getAllStudentSectionsTaken(currentUser.getUserId());
 
         mav = new ModelAndView("mySectionHistory", "sectionsTaken", sectionsTaken);
+        mav.addObject("ResultTitle", "All Sections Enrolled / Taken / Dropped:");
 
         return mav;
+    }
+
+    // View all sections taken (enrolled / taken / dropped):
+    @RequestMapping(value ="/myScedule", method = RequestMethod.GET)
+    public ModelAndView showMySchedule(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        if (currentUser == null) {
+            mav = new ModelAndView("home");
+            mav.addObject("Error", "You must be signed in as a Student to view your class schedule");
+            return mav;
+        }
+
+        List<SectionTaken> sectionsTaken = sectionDAO.getEnrolledStudentSectionsTaken(currentUser.getUserId());
+
+        mav = new ModelAndView("mySectionHistory", "sectionsTaken", sectionsTaken);
+        mav.addObject("ResultTitle", "My Schedule");
+
+        return mav;
+    }
+
+
+    // View all sections taken (enrolled / taken / dropped):
+    @RequestMapping(value ="/mySectionsTaughtHistory", method = RequestMethod.GET)
+    public ModelAndView showMySectionsTaughtHistory(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        if (currentUser == null || !currentUser.isInstructor()) {
+            mav = new ModelAndView("home");
+            mav.addObject("Error", "You must be signed in as an Instructor to view your sections taught history");
+            return mav;
+        }
+
+        List<Section> sectionsTaught = sectionDAO.getSectionsInstructorHasTaught(currentUser.getUserId());
+
+        mav = new ModelAndView("myTeachingSchedule", "sectionsTaught", sectionsTaught);
+        mav.addObject("ResultTitle", "All Sections Taught:");
+
+        return mav;
+    }
+
+    // View all sections taken (enrolled / taken / dropped):
+    @RequestMapping(value ="/myTeachingScedule", method = RequestMethod.GET)
+    public ModelAndView showMyTeachingScedule(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+        User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        if (currentUser == null || !currentUser.isInstructor()) {
+            mav = new ModelAndView("home");
+            mav.addObject("Error", "You must be signed in as an Instructor to view your teaching schedule");
+            return mav;
+        }
+
+        List<Section> sectionsTaught = sectionDAO.getSectionsInstructorTeachingForSemester(currentUser.getUserId(), getCurrentSemester(), getCurrentYear());
+
+        mav = new ModelAndView("myTeachingSchedule", "sectionsTaught", sectionsTaught);
+        mav.addObject("ResultTitle", "My Teaching Schedule");
+
+        return mav;
+    }
+
+
+    private String getCurrentSemester() {
+        return "Fall"; // TODO: actually implement.
+    }
+
+    private int getCurrentYear() {
+        return 2017;
     }
 
     // Enroll:
