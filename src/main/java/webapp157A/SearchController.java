@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class SearchController {
         ModelAndView mav = new ModelAndView();
         Course course = new Course();
         course.setParams(courseId, name, departmentId, units, description);
-        String sql = SearchManager.buildCourseQuery();
+        String sql = SearchManager.buildCourseQuery("course");
         Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
         List<Course> courses = courseDAO.getCourse(sql, values);
 //        if (courses != null) {
@@ -78,20 +79,27 @@ public class SearchController {
 
     @RequestMapping(value = "/genericSearch", method = RequestMethod.POST)
     public ModelAndView searchStudent(HttpServletRequest request, HttpServletResponse response,
-                                      @RequestParam(value = "firstName", required = true) String firstName,
-                                      @RequestParam(value = "lastName", required = true) String lastName,
-                                      @RequestParam(value = "emailAddress", required = true) String emailAddress) {
+                                      @RequestParam(value = "firstName", required = false) String firstName,
+                                      @RequestParam(value = "lastName", required = false) String lastName,
+                                      @RequestParam(value = "emailAddress", required = false) String emailAddress) {
 
         ModelAndView mav = new ModelAndView("genricSearchView");
-        Object[] values = new Object[]{firstName, lastName, emailAddress};
-        List<ContactInfo> contactInfos = contactInfoDAO.getInfoFirstAndLastAndEmail(values);
 
-        List<User> users = new ArrayList<User>();
-        for (ContactInfo contactInfo : contactInfos) {
-            users.add(userDAO.getUserByContactId(contactInfo.getContactId()));
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo.setParams(firstName, lastName, emailAddress);
+        String sql = SearchManager.buildCourseQuery("ContactInfo");
+        Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
+        List<ContactInfo> contactInfos = contactInfoDAO.getContactInfo(sql, values);
+        mav.addObject("contactInfos",contactInfos);
+
+        ArrayList<User> users = new ArrayList<User>();
+
+        for(ContactInfo cf: contactInfos) {
+            users.add(userDAO.getUserByContactId(cf.getContactId()));
         }
-
         mav.addObject("users", users);
+
+        // add some error method
 
         return mav;
     }

@@ -12,15 +12,15 @@
 
     <div class="container">
         <label><b>Fist Name: </b></label>
-        <input type="text" placeholder="Enter first name here" name="firstName" required>
+        <input type="text" placeholder="Enter first name here" name="firstName">
 
 
         <label><b>Last Name: </b></label>
 
-        <input type="text" placeholder="Enter last name here" name="lastName" required>
+        <input type="text" placeholder="Enter last name here" name="lastName">
 
         <label><b>Email Address: </b></label>
-        <input type="text" placeholder="Enter email address here" name="emailAddress" required >
+        <input type="text" placeholder="Enter email address here" name="emailAddress">
 
 
         <button type="submit">Search</button>

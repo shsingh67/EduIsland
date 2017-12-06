@@ -24,8 +24,6 @@ public class AdminController {
     AdminDAO adminDAO;
 
     @RequestMapping(value ="/updateForm", method = RequestMethod.GET)
-
-
     public ModelAndView getUpdateForm(HttpServletRequest request, HttpServletResponse response,
                                 @RequestParam(value = "type", required = true) String type) {
         ModelAndView mav = null;
@@ -70,8 +68,5 @@ public class AdminController {
 
         return null;
     }
-
-
-
 
 }

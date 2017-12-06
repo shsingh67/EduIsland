@@ -46,6 +46,12 @@ public class ContactInfoDAO {
         jdbcTemplate.update(CONNECT_USER_AND_CONTACT_INFO, new Object[] {userId, contactInfo.getContactId()});
     }
 
+    public List<ContactInfo> getContactInfo(String sql, Object[] values) {
+        List<ContactInfo> contactInfos = jdbcTemplate.query(sql, values, new ContactInfoMapper());
+
+        return contactInfos.size() > 0 ? contactInfos : null;
+    }
+
     public void addContactInfo(ContactInfo contactInfo) {
         jdbcTemplate.update(ADD_CONTACT_INFO, new Object[] {contactInfo.getContactId(),
                 contactInfo.getFirstName(), contactInfo.getMiddleName(), contactInfo.getLastName(),

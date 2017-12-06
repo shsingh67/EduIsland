@@ -4,6 +4,7 @@ import com.mysql.jdbc.TimeUtil;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ContactInfo {
 
@@ -78,6 +79,25 @@ public class ContactInfo {
         if (newContactInfo.city != null && !newContactInfo.city.equals("")) { setCity(newContactInfo.getCity()); }
         if (newContactInfo.state != null && !newContactInfo.state.equals("")) { setState(newContactInfo.getState()); }
         if (newContactInfo.zipCode != null && !newContactInfo.zipCode.equals("")) { setZipCode(newContactInfo.getZipCode()); }
+    }
+
+    public void setParams(String firstName, String lastName, String emailAddress) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        if(firstName.trim().compareTo("") !=0){
+            this.firstName = firstName;
+            params.put("first_name", firstName);
+        }
+
+        if(lastName.trim().compareTo("") !=0) {
+            this.lastName = lastName;
+            params.put("last_name", lastName);
+        }
+
+        if(emailAddress.trim().compareTo("") !=0) {
+            this.emailAddress = emailAddress;
+            params.put("email_address", emailAddress);
+        }
+        SearchManager.addSearchParams(params);
     }
 
     @Override
