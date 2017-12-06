@@ -125,6 +125,7 @@
             <th>Days of Week</th>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Instructor</th>
             <th>Room Number</th>
             <th>Building</th>
         </tr>
@@ -136,6 +137,7 @@
                 <td> ${section.sectionTaughtAtInfo.daysOfWeek} </td>
                 <td> ${section.sectionTaughtAtInfo.startTime} </td>
                 <td> ${section.sectionTaughtAtInfo.endTime} </td>
+                <td> ${section.instructor.fullName} </td>
                 <td> ${section.sectionTaughtAtInfo.roomNumber} </td>
                 <td> ${section.sectionTaughtAtInfo.buildingName} </td>
             </tr>
