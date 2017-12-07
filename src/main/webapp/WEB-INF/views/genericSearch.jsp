@@ -11,6 +11,10 @@
 
 
     <div class="container">
+
+        <label><b>User ID: </b></label>
+        <input type="text" placeholder="Enter user ID here" name="userId">
+
         <label><b>Fist Name: </b></label>
         <input type="text" placeholder="Enter first name here" name="firstName">
 
