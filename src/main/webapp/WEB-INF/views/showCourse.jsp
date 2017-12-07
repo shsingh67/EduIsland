@@ -5,66 +5,167 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Course page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Course</title>
+
+    <style>
+        #results {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #results td, #results th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /*alternating color for rows:*/
+        #results tr:nth-child(even){background-color: #f2f2f2;}
+
+        #results tr:hover {background-color: #ddd;}
+
+        #results th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: royalblue; /*#4CAF50;*/
+            color: white;
+        }
+
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 450px}
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+    </style>
 </head>
 <body>
 
-    <% User user = (User)session.getAttribute("user"); %>
+<%
+    User user = (User)session.getAttribute("user");
+%>
 
-<table>
-    <tr>
-        <td> Course ID: ${course.courseId.toUpperCase()} </td>
-    </tr>
-    <tr>
-        <td> Course name: ${course.name} </td>
-    </tr>
-    <tr>
-        <td> Number of units: ${course.units} </td>
-    </tr>
-    <tr>
-        <td> Description: ${course.description} </td>
-    </tr>
-    <tr>
-        <td> Department: <a href="/showDepartment/${course.departmentId}">${course.department.name}</a> </td>
-    </tr>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.jsp"><span class="glyphicon glyphicon-education"></span> EduControl</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"> <a href="home.jsp">Home</a> </li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if (user != null) { %>
+                <li> <a href="/welcome">${user.fullName}</a> </li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+                <% } else { %>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <c:if test="${not empty prereqs}">
+<h2> ${course.courseId.toUpperCase()}</h2>
+
+<table id="results">
+
+    <c:if test="${empty course}">
         <tr>
-            <td> Prerequisites: </td>
+            <td>
+                No course to show.
+            </td>
         </tr>
-
-        <table>
-            <c:forEach items="${prereqs}" var="prereq" varStatus="status">
-                <tr>
-                    <td> <a href="/showCourse/${prereq.courseId}">${prereq.courseId.toUpperCase()}</a>: ${prereq.name} </td>
-                </tr>
-            </c:forEach>
-        </table>
     </c:if>
 
-    <tr>
-        <td> <a href="/showSectionsOfCourse/${course.courseId}">View Sections</a> </td>
-    </tr>
+    <c:if test="${not empty course}">
 
-    <%--if a user is logged in, show Course options (Enroll/Edit): --%>
-    <% if(user != null)  { %>
+         <%--Table heading:--%>
+        <tr>
+            <th>${course.courseId.toUpperCase()}</th>
+            <th> Info </th>
+        </tr>
 
-        <% if(user.isAdmin()) { %>
+         <%--Single-column table rows:--%>
+        <tr>
+            <td> Course name: </td>
+            <td> ${course.name} </td>
+        </tr>
+        <tr>
+            <td> Number of units: </td>
+            <td> ${course.units} </td>
+        </tr>
+        <tr>
+            <td> Description: </td>
+            <td> ${course.description} </td>
+        </tr>
+        <tr>
+            <td> Department: </a> </td>
+            <td> <a href="/showDepartment/${course.departmentId}">${course.department.name}</a> </td>
+        </tr>
 
-            <tr>
-                <td> <a href="/">Edit</a> </td>
-            </tr>
-            <tr>
-                <td> <a href="/">Create Section of this Course</a> </td>
-            </tr>
+    </c:if>
 
-        <% } // if admin end. %>
-
-    <% } // if (user != null) end. %>
-
-    <tr>
-        <td> <a href="/">Home</a> </td>
-    </tr>
 </table>
+
+<c:if test="${not empty prereqs}">
+
+    <table id="results">
+            <%--Table heading:--%>
+        <tr>
+            <th>Prerequisites</th>
+        </tr>
+
+            <%--Single-column table rows:--%>
+        <c:forEach items="${prereqs}" var="prereq" varStatus="status">
+            <tr>
+                <td> <a href="/showCourse/${prereq.courseId}">${prereq.courseId.toUpperCase()}: ${prereq.name}</a> </td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+
+<%-- a link that looks like a button: --%>
+<a href="/showSectionsOfCourse/${course.courseId}" class="btn btn-default"> View Sections </a>
+
 </body>
 </html>
