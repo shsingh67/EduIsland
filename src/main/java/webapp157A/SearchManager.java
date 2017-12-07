@@ -38,7 +38,7 @@ public class SearchManager {
             for (Map.Entry<String, String> pair : params.entrySet()) {
                 SearchParam sp = SEARCH_PARAMS.get(pair.getKey());
                 String query = sp.whereClause(pair.getKey());
-                if (pair.getKey().equals("description")) {
+                if (pair.getKey().equals("description") || pair.getKey().equals("course_id") || pair.getKey().equals("name")) {
                     values.add("%" + pair.getValue() + "%");
                 } else {
                     values.add(pair.getValue());
