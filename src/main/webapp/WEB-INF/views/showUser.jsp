@@ -70,19 +70,19 @@
 </div>
 
 <div>
-    <a href="/editOtherContactInfo/${user.userId}" class="btn btn-default"> Add Contact Info </a> </a>
+    <a href="/editOtherContactInfo/${user.userId}" class="btn btn-default"> Add Contact Info </a>
 </div>
 
 <div>
-    <a href="/editStudentInfo/${user.userId}" class="btn btn-default"> Add Student Info </a> </a>
+    <a href="/editStudentInfo/${user.userId}" class="btn btn-default"> Add Student Info </a>
 </div>
 
 <div>
-    <a href="/editOtherInstructorInfo/${user.userId}" class="btn btn-default"> Add Instructor Info </a> </a>
+    <a href="/editOtherInstructorInfo/${user.userId}" class="btn btn-default"> Add Instructor Info </a>
 </div>
 
 <div>
-    <a href="/editAdminInfo/${user.userId}" class="btn btn-default"> Add Admin Info </a> </a>
+    <a href="/editAdminInfo/${user.userId}" class="btn btn-default"> Add Admin Info </a>
 </div>
 
 
