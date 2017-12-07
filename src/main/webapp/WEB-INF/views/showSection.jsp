@@ -144,7 +144,15 @@
         </tr>
         <tr>
             <td> Instructor: </td>
-            <td> ${section.instructor.fullName} </td>
+            <td> <a href="/showUser/${section.instructor.userId}">${section.instructor.fullName}</a> </td>
+        </tr>
+        <tr>
+            <td> Days:  </td>
+            <td> ${section.sectionTaughtAtInfo.daysOfWeek} </td>
+        </tr>
+        <tr>
+            <td> Location:  </td>
+            <td> ${section.sectionTaughtAtInfo.roomNumber} ${section.sectionTaughtAtInfo.buildingName} </td>
         </tr>
         <tr>
             <td> Start Date:  </td>

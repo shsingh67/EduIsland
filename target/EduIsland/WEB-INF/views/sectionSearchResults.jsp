@@ -133,11 +133,11 @@
         <c:forEach items="${sections}" var="section" varStatus="status">
             <tr>
                 <td> <a href="/showCourse/${section.course.courseId}">${section.course.courseId.toUpperCase()}</a> </td>
-                <td> <a href="/showSection/${section.sectionId}">${section.sectionNumber}</a></td>
+                <td> <a href="/showSection/${section.sectionId}">${section.sectionNumber}</a> </td>
                 <td> ${section.sectionTaughtAtInfo.daysOfWeek} </td>
                 <td> ${section.sectionTaughtAtInfo.startTime} </td>
                 <td> ${section.sectionTaughtAtInfo.endTime} </td>
-                <td> ${section.instructor.fullName} </td>
+                <td> <a href="/showUser/${section.instructor.userId}">${section.instructor.fullName}</a> </td>
                 <td> ${section.sectionTaughtAtInfo.roomNumber} </td>
                 <td> ${section.sectionTaughtAtInfo.buildingName} </td>
             </tr>
