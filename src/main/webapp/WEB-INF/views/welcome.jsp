@@ -95,6 +95,8 @@
             </c:if>
             <c:if test="${user.admin}">
                 <p><a href="/genericForm">Find People</a></p>
+                <p><a href="/updateForm?type=instructor">Add Instructor</a></p>
+                <p><a href="/createUser">Add User</a></p>
             </c:if>
         </div>
         <div class="col-sm-8 text-left">

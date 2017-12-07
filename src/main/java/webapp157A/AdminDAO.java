@@ -20,7 +20,15 @@ public class AdminDAO {
     @Autowired
     DepartmentDAO departmentDAO; // linked resource.
 
+    @Autowired
+    UserDAO userDAO; // linked resource.
+
+    @Autowired
+    ContactInfoDAO contactInfoDAO; // linked resource.
+
     public static final String GET_ADMIN_WITH_USER_ID = "select * from Administrator where user_ID = ?;";
+
+    public static final String CREATE_ADMIN_RECORD = "insert into Administrator values(?, ?)";
 
     public static final String UPDATE_ADMIN_INFO = "update Administrator set title=? where user_id=?;";
 
@@ -37,13 +45,17 @@ public class AdminDAO {
         return adminInfos.size() > 0 ? adminInfos.get(0) : null; // this checks if adminInfos size > greater than 0, then return the first admin else return null
     }
 
+    public void addAdminInfo(AdminInfo adminInfo) {
+        jdbcTemplate.update(CREATE_INSTRUCTOR_RECORD, new Object[] {adminInfo.getUserId(), adminInfo.getTitle()});
+    }
+
     public void updateAdminInfo(AdminInfo adminInfo) {
         jdbcTemplate.update(UPDATE_ADMIN_INFO, new Object[] {adminInfo.getTitle(),
                 adminInfo.getUserId()});
     }
 
-    public void createInstruc(InstructorInfo instruc) {
-        jdbcTemplate.update(CREATE_INSTRUCTOR_RECORD, new Object[] {instruc.getUserId(), instruc.getBiography(), instruc.getPhoto(), instruc.getPosition()});
+    public void createInstructor(InstructorInfo instructorInfo) {
+        jdbcTemplate.update(CREATE_INSTRUCTOR_RECORD, new Object[] {instructorInfo.getUserId(), instructorInfo.getBiography(), instructorInfo.getPhoto(), instructorInfo.getPosition()});
     }
 
     public void createStudent(StudentInfo studentInfo) {

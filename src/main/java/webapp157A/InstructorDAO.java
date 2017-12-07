@@ -20,6 +20,8 @@ public class InstructorDAO {
     @Autowired
     DepartmentDAO departmentDAO; // linked resource
 
+    public static final String CREATE_INSTRUCTOR_RECORD = "insert into Instructor values(?,?,?,?)";
+
     public static final String GET_INSTRUCTOR_WITH_USER_ID = "select * from Instructor where user_ID = ?;";
 
     public static final String UPDATE_INSTRUCTOR_INFO = "update Instructor set biography=?, photo=?, position=? where user_id=?;";
@@ -38,10 +40,25 @@ public class InstructorDAO {
                 instructorInfo.getUserId()});
     }
 
+    public void addInstructorInfo(InstructorInfo instructorInfo) {
+        jdbcTemplate.update(CREATE_INSTRUCTOR_RECORD, new Object[] {instructorInfo.getUserId(), instructorInfo.getBiography(), instructorInfo.getPhoto(), instructorInfo.getPosition()});
+    }
+
     public OfficeHours getInstructorOfficeHours(String instructorId) {
         List<OfficeHours> officeHoursList = jdbcTemplate.query(GET_INSTRUCTOR_OFFICE_HOURS, new Object[]{instructorId}, new OfficeHoursMapper());
 
         return officeHoursList.size() > 0 ? officeHoursList.get(0) : null; // this checks if officeHoursList size > greater than 0, then return the first officeHours else return null
+    }
+
+    public void updateInstructorInfoOrAdd(InstructorInfo instructorInfo) {
+
+        InstructorInfo checkExistingInstructorInfo = getInstructorInfo(instructorInfo.getUserId());
+
+        if (checkExistingInstructorInfo == null) {
+            addInstructorInfo(instructorInfo);
+        } else {
+            updateInstructorInfo(instructorInfo);
+        }
     }
 
     public class InstructorMapper implements RowMapper {

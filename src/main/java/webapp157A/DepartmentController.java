@@ -61,18 +61,12 @@ public class DepartmentController {
 
         ModelAndView mav = null;
 
-        if (true) { //currentUser != null) {
-            // update record:
-            departmentDAO.updateDepartment(departmentInfoEntered);
+        // update record:
+        departmentDAO.updateDepartment(departmentInfoEntered);
 
-            Department updatedDepartment = departmentDAO.getDepartment(departmentInfoEntered.getDepartmentId());
+        Department updatedDepartment = departmentDAO.getDepartment(departmentInfoEntered.getDepartmentId());
 
-            mav = new ModelAndView("showDepartment", "department", updatedDepartment);
-        }
-        else {
-            mav = new ModelAndView("login");
-            mav.addObject("Error", "No current user.");
-        }
+        mav = new ModelAndView("showDepartment", "department", updatedDepartment);
 
         return mav;
     }
