@@ -99,19 +99,22 @@ public class AdminController {
     public ModelAndView createUser(HttpServletRequest request, HttpServletResponse response, HttpSession session, @ModelAttribute("createUserForm") User userInfoEntered) {
         userDAO.register(userInfoEntered);
 
-        return new ModelAndView("showUser", "user", userInfoEntered);
+        return new ModelAndView("showUser", "userShowing", userInfoEntered);
     }
 
     @RequestMapping(value ="/showUser/{userId}", method = RequestMethod.GET)
-    public ModelAndView showUser(HttpServletRequest request, HttpServletResponse response,
+    public ModelAndView showUser(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                                        @PathVariable("userId") String userId) {
         ModelAndView mav = null;
+
+        User currentUser = (User)session.getAttribute("user");
 
         User user = userDAO.getUserById(userId);
 
         if (user != null) {
 
-            mav = new ModelAndView("showUser", "user", user);
+            mav = new ModelAndView("showUser", "userShowing", user);
+            mav.addObject("user", currentUser);
         } else { // course not found page
             mav = new ModelAndView("resourceNotFound", "resource", "User");
             mav.addObject("Error", "No user found with ID = " + userId);
@@ -149,7 +152,7 @@ public class AdminController {
 
         User updatedUser = userDAO.getUserById(userInfoEntered.getUserId());
 
-        mav = new ModelAndView("showUser", "user", updatedUser);
+        mav = new ModelAndView("showUser", "userShowing", updatedUser);
 
         return mav;
     }
@@ -190,7 +193,7 @@ public class AdminController {
 
         User updatedUser = userDAO.getUserById(studentInfoEntered.getUserId());
 
-        mav = new ModelAndView("showUser", "user", updatedUser);
+        mav = new ModelAndView("showUser", "userShowing", updatedUser);
 
         return mav;
     }
@@ -231,7 +234,7 @@ public class AdminController {
 
         User updatedUser = userDAO.getUserById(instructorInfoEntered.getUserId());
 
-        mav = new ModelAndView("showUser", "user", updatedUser);
+        mav = new ModelAndView("showUser", "userShowing", updatedUser);
 
         return mav;
     }
@@ -272,7 +275,7 @@ public class AdminController {
 
         User updatedUser = userDAO.getUserById(adminInfoEntered.getUserId());
 
-        mav = new ModelAndView("showUser", "user", updatedUser);
+        mav = new ModelAndView("showUser", "userShowing", updatedUser);
 
         return mav;
     }
@@ -316,7 +319,7 @@ public class AdminController {
 
         User updatedUser = userDAO.getUserById(contactInfoEntered.getUserId());
 
-        mav = new ModelAndView("showUser", "user", updatedUser);
+        mav = new ModelAndView("showUser", "userShowing", updatedUser);
         mav.addObject("currentUser", currentUser);
 
         return mav;

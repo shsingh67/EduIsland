@@ -107,7 +107,7 @@
 
 <h2> User Info </h2>
 
-    <c:if test="${empty user}">
+    <c:if test="${empty userShowing}">
         <table id="results">
             <tr>
                 <td>
@@ -117,27 +117,27 @@
         </table>
     </c:if>
 
-    <c:if test="${not empty user}">
+    <c:if test="${not empty userShowing}">
         <table id="results">
             <%--Table heading:--%>
             <tr>
                 <th>User ID: </th>
-                <th> ${user.userId} </th>
+                <th> ${userShowing.userId} </th>
             </tr>
 
             <%--Single-column table rows:--%>
             <tr>
                 <td> User Name:  </td>
-                <td> ${user.fullName} </td>
+                <td> ${userShowing.fullName} </td>
             </tr>
         </table>
         <%-- a link that looks like a button: --%>
         <% if(user != null && user.isAdmin())  { %>
-            <a href="/editUser/${user.userId}" class="btn btn-default"> Change user password </a>
-            <a href="/editOtherContactInfo/${user.userId}" class="btn btn-default"> Edit Contact Info </a>
+            <a href="/editUser/${userShowing.userId}" class="btn btn-default"> Change user password </a>
+            <a href="/editOtherContactInfo/${userShowing.userId}" class="btn btn-default"> Edit Contact Info </a>
         <% } // if (user != null) end.%>
 
-        <c:if test="${user.student}">
+        <c:if test="${userShowing.student}">
             <table id="results">
                     <%--Table heading:--%>
                 <tr>
@@ -148,22 +148,22 @@
                     <%--Single-column table rows:--%>
                 <tr>
                     <td> Enrollment Status:  </td>
-                    <td> ${user.studentInfo.enrollmentStatus} </td>
+                    <td> ${userShowing.studentInfo.enrollmentStatus} </td>
                 </tr>
             </table>
             <%-- a link that looks like a button: --%>
             <% if(user != null && user.isAdmin())  { %>
-                <a href="/editStudentInfo/${user.userId}" class="btn btn-default"> Edit Student Info </a>
+                <a href="/editStudentInfo/${userShowing.userId}" class="btn btn-default"> Edit Student Info </a>
             <% } // if (user != null) end.%>
         </c:if>
-        <c:if test="${empty user.studentInfo}">
+        <c:if test="${empty userShowing.studentInfo}">
             <%-- a link that looks like a button: --%>
             <% if(user != null && user.isAdmin())  { %>
-                <a href="/editStudentInfo/${user.userId}" class="btn btn-default"> Add Student Info </a>
+                <a href="/editStudentInfo/${userShowing.userId}" class="btn btn-default"> Add Student Info </a>
             <% } // if (user != null) end.%>
         </c:if>
 
-        <c:if test="${user.instructor}">
+        <c:if test="${userShowing.instructor}">
             <table id="results">
                     <%--Table heading:--%>
                 <tr>
@@ -174,30 +174,30 @@
                     <%--Single-column table rows:--%>
                 <tr>
                     <td> Instructor Position:  </td>
-                    <td> ${user.instructorInfo.position} </td>
+                    <td> ${userShowing.instructorInfo.position} </td>
                 </tr>
                 <tr>
                     <td> Department Teaches for:  </td>
-                    <td> ${user.instructorInfo.departmentTeachesFor.name} </td>
+                    <td> ${userShowing.instructorInfo.departmentTeachesFor.name} </td>
                 </tr>
                 <tr>
                     <td> Biography:  </td>
-                    <td> ${user.instructorInfo.biography} </td>
+                    <td> ${userShowing.instructorInfo.biography} </td>
                 </tr>
             </table>
             <%-- a link that looks like a button: --%>
             <% if(user != null && user.isAdmin())  { %>
-                <a href="/editOtherInstructorInfo/${user.userId}" class="btn btn-default"> Edit Instructor Info </a>
+                <a href="/editOtherInstructorInfo/${userShowing.userId}" class="btn btn-default"> Edit Instructor Info </a>
             <% } // if (user != null) end.%>
         </c:if>
-        <c:if test="${empty user.instructorInfo}">
+        <c:if test="${empty userShowing.instructorInfo}">
             <%-- a link that looks like a button: --%>
             <% if(user != null && user.isAdmin())  { %>
-                <a href="/editOtherInstructorInfo/${user.userId}" class="btn btn-default"> Add Instructor Info </a>
+                <a href="/editOtherInstructorInfo/${userShowing.userId}" class="btn btn-default"> Add Instructor Info </a>
             <% } // if (user != null) end.%>
         </c:if>
 
-        <c:if test="${user.admin}">
+        <c:if test="${userShowing.admin}">
             <table id="results">
                     <%--Table heading:--%>
                 <tr>
@@ -208,22 +208,22 @@
                     <%--Single-column table rows:--%>
                 <tr>
                     <td> Admin Title:  </td>
-                    <td> ${user.adminInfo.title} </td>
+                    <td> ${userShowing.adminInfo.title} </td>
                 </tr>
                 <tr>
                     <td> Department administers:  </td>
-                    <td> ${user.adminInfo.departmentAdministers.name} </td>
+                    <td> ${userShowing.adminInfo.departmentAdministers.name} </td>
                 </tr>
             </table>
             <%-- a link that looks like a button: --%>
             <% if(user != null && user.isAdmin())  { %>
-                <a href="/editAdminInfo/${user.userId}" class="btn btn-default"> Edit Admin Info </a>
+                <a href="/editAdminInfo/${userShowing.userId}" class="btn btn-default"> Edit Admin Info </a>
             <% } // if (user != null) end.%>
         </c:if>
-        <c:if test="${empty user.adminInfo}">
+        <c:if test="${empty userShowing.adminInfo}">
             <%-- a link that looks like a button: --%>
             <% if(user != null && user.isAdmin())  { %>
-            <a href="/editAdminInfo/${user.userId}" class="btn btn-default"> Add Admin Info </a>
+            <a href="/editAdminInfo/${userShowing.userId}" class="btn btn-default"> Add Admin Info </a>
             <% } // if (user != null) end.%>
         </c:if>
 
