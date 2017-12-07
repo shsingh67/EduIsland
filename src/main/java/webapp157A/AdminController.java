@@ -29,6 +29,9 @@ public class AdminController {
     @Autowired
     InstructorDAO instructorDAO;
 
+    @Autowired
+    ContactInfoDAO contactInfoDAO;
+
 
     // create a new user/course/etc.: example: /updateForm?type=instructor
     @RequestMapping(value ="/createForm", method = RequestMethod.GET)
@@ -195,7 +198,7 @@ public class AdminController {
     // ----- Instructor Info:
 
     // edit user password:
-    @RequestMapping(value ="/editInstructorInfo/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value ="/editOtherInstructorInfo/{userId}", method = RequestMethod.GET)
     public ModelAndView editInstructorInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                                         @PathVariable("userId") String userId) {
 
@@ -208,17 +211,17 @@ public class AdminController {
             userToEdit.getInstructorInfo().setUserId(userToEdit.getUserId());
         }
 
-        ModelAndView mav = new ModelAndView("editInstructorInfo"); // name of the JSP file referencing.
-        mav.addObject("editInstructorInfoForm", userToEdit.getInstructorInfo()); // attributeName from JSP form's modelAttribute field.
+        ModelAndView mav = new ModelAndView("editOtherInstructorInfo"); // name of the JSP file referencing.
+        mav.addObject("editOtherInstructorInfoForm", userToEdit.getInstructorInfo()); // attributeName from JSP form's modelAttribute field.
         mav.addObject("user", currentUser);
         mav.addObject("userEditing", userToEdit);
 
         return mav;
     }
 
-    @RequestMapping(value="/updateInstructorInfoProcess", method = RequestMethod.POST)
+    @RequestMapping(value="/updateOtherInstructorInfoProcess", method = RequestMethod.POST)
     public ModelAndView updateInstructorInfo(HttpServletRequest request, HttpServletResponse response,
-                                          @ModelAttribute("editInstructorInfoForm") InstructorInfo instructorInfoEntered) {
+                                          @ModelAttribute("editOtherInstructorInfoForm") InstructorInfo instructorInfoEntered) {
         //User currentUser = (User)session.getAttribute("user");
 
         ModelAndView mav = null;
@@ -227,6 +230,89 @@ public class AdminController {
         instructorDAO.updateInstructorInfoOrAdd(instructorInfoEntered);
 
         User updatedUser = userDAO.getUserById(instructorInfoEntered.getUserId());
+
+        mav = new ModelAndView("showUser", "user", updatedUser);
+
+        return mav;
+    }
+
+    // ----- Admin Info:
+
+    // edit user password:
+    @RequestMapping(value ="/editAdminInfo/{userId}", method = RequestMethod.GET)
+    public ModelAndView editAdminInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                           @PathVariable("userId") String userId) {
+
+        User currentUser = (User)session.getAttribute("user");
+
+        User userToEdit = userDAO.getUserById(userId);
+
+        if (userToEdit.getAdminInfo() == null) {
+            userToEdit.setAdminInfo(new AdminInfo());
+            userToEdit.getAdminInfo().setUserId(userToEdit.getUserId());
+        }
+
+        ModelAndView mav = new ModelAndView("editAdminInfo"); // name of the JSP file referencing.
+        mav.addObject("editAdminInfoForm", userToEdit.getAdminInfo()); // attributeName from JSP form's modelAttribute field.
+        mav.addObject("user", currentUser);
+        mav.addObject("userEditing", userToEdit);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/updateAdminInfoProcess", method = RequestMethod.POST)
+    public ModelAndView updateAdminInfo(HttpServletRequest request, HttpServletResponse response,
+                                             @ModelAttribute("editAdminInfoForm") AdminInfo adminInfoEntered) {
+        //User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        // update record:
+        adminDAO.updateAdminInfoOrAdd(adminInfoEntered);
+
+        User updatedUser = userDAO.getUserById(adminInfoEntered.getUserId());
+
+        mav = new ModelAndView("showUser", "user", updatedUser);
+
+        return mav;
+    }
+
+
+    // ----- Contact Info:
+
+    // edit user password:
+    @RequestMapping(value ="/editOtherContactInfo/{userId}", method = RequestMethod.GET)
+    public ModelAndView editOtherContactInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                      @PathVariable("userId") String userId) {
+
+        User currentUser = (User)session.getAttribute("user");
+
+        User userToEdit = userDAO.getUserById(userId);
+
+        if (userToEdit.getUserContactInfo() == null) {
+            userToEdit.setUserContactInfo(new ContactInfo());
+            userToEdit.getUserContactInfo().setUserIdForForm(userToEdit.getUserId());
+        }
+
+        ModelAndView mav = new ModelAndView("editOtherContactInfo"); // name of the JSP file referencing.
+        mav.addObject("editOtherContactInfoForm", userToEdit.getUserContactInfo()); // attributeName from JSP form's modelAttribute field.
+        mav.addObject("user", currentUser);
+        mav.addObject("userEditing", userToEdit);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/updateOtherContactInfoProcess", method = RequestMethod.POST)
+    public ModelAndView updateOtherContactInfo(HttpServletRequest request, HttpServletResponse response,
+                                        @ModelAttribute("editOtherContactInfoForm") ContactInfo contactInfoEntered) {
+        //User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        // update record:
+        contactInfoDAO.updateContactInfoOrAdd(contactInfoEntered, contactInfoEntered.getUserIdFromForm());
+
+        User updatedUser = userDAO.getUserById(contactInfoEntered.getUserIdFromForm());
 
         mav = new ModelAndView("showUser", "user", updatedUser);
 

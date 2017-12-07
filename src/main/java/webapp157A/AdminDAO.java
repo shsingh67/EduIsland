@@ -46,7 +46,7 @@ public class AdminDAO {
     }
 
     public void addAdminInfo(AdminInfo adminInfo) {
-        jdbcTemplate.update(CREATE_INSTRUCTOR_RECORD, new Object[] {adminInfo.getUserId(), adminInfo.getTitle()});
+        jdbcTemplate.update(CREATE_ADMIN_RECORD, new Object[] {adminInfo.getUserId(), adminInfo.getTitle()});
     }
 
     public void updateAdminInfo(AdminInfo adminInfo) {
@@ -65,6 +65,17 @@ public class AdminDAO {
     public void createCourse(Course course) {
         jdbcTemplate.update(CREATE_COURSE_RECORD, new Object[] {course.getCourseId(), course.getName(), course.getUnits(), course.getDescription(), course.getDepartmentId()});
 
+    }
+
+    public void updateAdminInfoOrAdd(AdminInfo adminInfo) {
+
+        AdminInfo checkExistingAdminInfo = getAdminInfo(adminInfo.getUserId());
+
+        if (checkExistingAdminInfo == null) {
+            addAdminInfo(adminInfo);
+        } else {
+            updateAdminInfo(adminInfo);
+        }
     }
 
     public class AdminMapper implements RowMapper {

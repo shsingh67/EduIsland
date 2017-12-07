@@ -34,14 +34,61 @@
                 <td> Enrollment Status: ${user.studentInfo.enrollmentStatus} </td>
             </tr>
         </c:if>
+
+        <c:if test="${user.instructor}">
+            <tr>
+                <td> Instructor Position: ${user.instructorInfo.position} </td>
+            </tr>
+            <c:if test="${not empty user.instructorInfo.departmentTeachesFor}">
+                <tr>
+                    <td> Department teaches for: ${user.instructorInfo.departmentTeachesFor.name} </td>
+                </tr>
+            </c:if>
+            <tr>
+                <td> Bio: ${user.instructorInfo.biography} </td>
+            </tr>
+        </c:if>
+
+        <c:if test="${user.admin}">
+            <tr>
+                <td> Admin Title: ${user.adminInfo.title} </td>
+            </tr>
+            <c:if test="${not empty user.adminInfo.departmentAdministers}">
+                <tr>
+                    <td> Department administers: ${user.adminInfo.departmentAdministers.name} </td>
+                </tr>
+            </c:if>
+        </c:if>
+
+
+
     </table>
 
 <%-- a link that looks like a button: --%>
-<a href="/editUser/${user.userId}" class="btn btn-default"> Change password </a>
-<a href="/" class="btn btn-default"> Add Contact Info </a>
-<a href="/editStudentInfo/${user.userId}" class="btn btn-default"> Add Student Info </a>
-<a href="/" class="btn btn-default"> Add Instructor Info </a>
-<a href="/" class="btn btn-default"> Add Admin Info </a>
+<div>
+    <a href="/editUser/${user.userId}" class="btn btn-default"> Change password </a>
+</div>
+
+<div>
+    <a href="/editOtherContactInfo/${user.userId}" class="btn btn-default"> Add Contact Info </a> </a>
+</div>
+
+<div>
+    <a href="/editStudentInfo/${user.userId}" class="btn btn-default"> Add Student Info </a> </a>
+</div>
+
+<div>
+    <a href="/editOtherInstructorInfo/${user.userId}" class="btn btn-default"> Add Instructor Info </a> </a>
+</div>
+
+<div>
+    <a href="/editAdminInfo/${user.userId}" class="btn btn-default"> Add Admin Info </a> </a>
+</div>
+
+
+
+
+
 
 <% } // if admin end. %>
 
