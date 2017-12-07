@@ -117,7 +117,7 @@
         }
 
         .button:hover {
-            background-color: mediumblue;
+            background-color: cornflowerblue;
         }
 
 
