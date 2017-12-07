@@ -94,6 +94,17 @@ public class ContactInfoDAO {
         return contacts;
     }
 
+    public void updateContactInfoOrAdd(ContactInfo contactInfo, String userId) {
+
+        ContactInfo checkExistingAdminInfo = getContactInfo(contactInfo.getContactId());
+
+        if (checkExistingAdminInfo == null) {
+            addContactInfoToUser(userId, contactInfo);
+        } else {
+            updateContactInfo(contactInfo);
+        }
+    }
+
 
     public class ContactInfoMapper implements RowMapper {
         public ContactInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -123,6 +134,6 @@ public class ContactInfoDAO {
     private String generateUserContactId(String userId)
     {
         // TODO: there may be a better approach to doing this:
-        return userId + "-c";
+        return "CI-" + userId;
     }
 }

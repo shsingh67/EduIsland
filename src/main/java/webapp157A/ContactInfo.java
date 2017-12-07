@@ -23,6 +23,8 @@ public class ContactInfo {
     private String state;
     private String zipCode;
 
+    private String userId;
+
     // Getters and setters:
 
     public String getContactId() { return contactId; }
@@ -57,6 +59,10 @@ public class ContactInfo {
 
     public String getZipCode() { return zipCode; }
     public void setZipCode(String zipCode) { this.zipCode = zipCode; }
+
+    // Special:
+    public String getUserIdFromForm() { return userId; }
+    public void setUserIdForForm(String userId) { this.userId = userId; }
 
     // Other methods:
 

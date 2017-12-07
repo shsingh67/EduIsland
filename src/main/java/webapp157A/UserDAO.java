@@ -32,6 +32,10 @@ public class UserDAO {
     public static final String REGISTER_USER = "insert into user values(?, ?, ?)";
     public static final String VALIDATE_USER = "select * from user where user_id = ? and password = ?";
 
+    public static final String GET_USER_BY_ID = "select * from user where user_id = ?";
+
+    public static final String UPDATE_USER_PASSWORD = "update user set password=? where user_id = ?;";
+
     public static final String GET_USER_BY_CONTACT_ID = "select * from user where user_id = (select user_ID from HasContactInfo where contact_ID = ?)";
 
     public static final String GET_INSTRUCTOR_WHO_TEACHES = "select * from user where user_id = (select instructor_id from section where section_id = ?);";
@@ -39,12 +43,43 @@ public class UserDAO {
 
     // Methods:
 
+    public void addUserAndInfo(User user) {
+
+        register(user);
+
+        if (user.getUserContactInfo() != null) {
+            contactInfoDAO.addContactInfoToUser(user.getUserId(), user.getUserContactInfo());
+        }
+
+        if (user.isStudent()) {
+            studentDAO.addStudentInfo(user.getStudentInfo());
+        }
+
+        if (user.isInstructor()) {
+            instructorDAO.addInstructorInfo(user.getInstructorInfo());
+        }
+
+        if (user.isAdmin()) {
+            adminDAO.addAdminInfo(user.getAdminInfo());
+        }
+    }
+
     public void register(User user) {
         jdbcTemplate.update(REGISTER_USER, new Object[] {user.getUserId(), user.getPassword(), user.getDatejoined()});
     }
 
     public User validateUser(User user) {
         List<User> users = jdbcTemplate.query(VALIDATE_USER, new Object[]{user.getUserId(), user.getPassword()}, new UserMapper());
+
+        return users.size() > 0 ? users.get(0) : null; // this checks if users size > greater than 0, then return the first user else return null
+    }
+
+    public void updateUserPassword(String userId, String newPassword) {
+        jdbcTemplate.update(UPDATE_USER_PASSWORD, new Object[] {newPassword, userId});
+    }
+
+    public User getUserById(String userId) {
+        List<User> users = jdbcTemplate.query(GET_USER_BY_ID, new Object[]{userId}, new UserMapper());
 
         return users.size() > 0 ? users.get(0) : null; // this checks if users size > greater than 0, then return the first user else return null
     }

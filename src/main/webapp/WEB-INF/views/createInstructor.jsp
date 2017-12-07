@@ -5,7 +5,7 @@
 
 <body>
 
-<h1>create instructor here</h1>
+<h1>Create Instructor</h1>
 
 <form:form id="instForm" modelAttribute="recordVals" action="adminCreateInstruc" method="post" >
 
@@ -13,14 +13,7 @@
         <label><b>Instructor: </b></label>
         <input type="text" placeholder="user ID" name="userId">
 
-        <label><b>Biography: </b></label>
-
-        <input type="text" placeholder="Enter biography" name="biography" >
-
-        <label><b>Units: </b></label>
-        <input type="text" placeholder="Enter photo" name="photo" >
-
-        <label><b>Description: </b></label>
+        <label><b>Position: </b></label>
         <input type="text" placeholder="Enter position" name="position">
 
         <button type="submit">Search</button>

@@ -105,7 +105,7 @@
     </div>
 </nav>
 
-<h2> Section Results:</h2>
+<h2> User Results:</h2>
 
 <table id="results">
 
@@ -120,11 +120,13 @@
     <c:if test="${not empty users}">
 
         <tr>
+            <th>User ID</th>
             <th>Name</th>
         </tr>
 
         <c:forEach items="${users}" var="user" varStatus="status">
             <tr>
+                <td> <a href="/showUser/${user.userId}">${user.userId}</a> </td>
                 <td> ${user.fullName} </td>
             </tr>
         </c:forEach>
