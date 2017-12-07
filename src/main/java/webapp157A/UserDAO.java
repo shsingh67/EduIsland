@@ -66,6 +66,14 @@ public class UserDAO {
 
     public void register(User user) {
         jdbcTemplate.update(REGISTER_USER, new Object[] {user.getUserId(), user.getPassword(), user.getDatejoined()});
+
+        ContactInfo newContactInfo = new ContactInfo();
+        newContactInfo.setFirstName("[Enter First Name]");
+        newContactInfo.setLastName("[Enter Last Name]");
+
+        newContactInfo.setUserId(user.getUserId());
+
+        contactInfoDAO.addContactInfoToUser(user.getUserId(), newContactInfo);
     }
 
     public User validateUser(User user) {

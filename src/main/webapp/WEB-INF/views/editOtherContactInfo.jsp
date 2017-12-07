@@ -15,7 +15,11 @@
 
         <label><b>User ID: </b></label>
             <%--NOTE: "name" attribute corresponds to field "firstName" of new contactInfo object passed in:--%>
-        <input type="text" placeholder="Enter user ID" name="userId" value="${userEditing.userContactInfo.userIdFromForm}" readonly required>
+        <input type="text" placeholder="Enter user ID" name="userId" value="${userEditing.userId}" readonly required>
+
+        <label><b>Contact ID: </b></label>
+            <%--NOTE: "name" attribute corresponds to field "firstName" of new contactInfo object passed in:--%>
+        <input type="text" placeholder="Enter contact ID" name="contactId" value="${userEditing.userContactInfo.contactId}" readonly required>
 
         <label><b>First name: </b></label>
             <%--NOTE: "name" attribute corresponds to field "firstName" of new contactInfo object passed in:--%>

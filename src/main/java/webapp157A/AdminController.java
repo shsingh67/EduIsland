@@ -289,10 +289,12 @@ public class AdminController {
 
         User userToEdit = userDAO.getUserById(userId);
 
-        if (userToEdit.getUserContactInfo() == null) {
-            userToEdit.setUserContactInfo(new ContactInfo());
-            userToEdit.getUserContactInfo().setUserIdForForm(userToEdit.getUserId());
-        }
+//        if (userToEdit.getUserContactInfo() == null) {
+//            userToEdit.setUserContactInfo(new ContactInfo());
+//            userToEdit.getUserContactInfo().setUserIdForForm(userToEdit.getUserId());
+//        }
+
+        userToEdit.getUserContactInfo().setUserId(userToEdit.getUserId());
 
         ModelAndView mav = new ModelAndView("editOtherContactInfo"); // name of the JSP file referencing.
         mav.addObject("editOtherContactInfoForm", userToEdit.getUserContactInfo()); // attributeName from JSP form's modelAttribute field.
@@ -303,18 +305,19 @@ public class AdminController {
     }
 
     @RequestMapping(value="/updateOtherContactInfoProcess", method = RequestMethod.POST)
-    public ModelAndView updateOtherContactInfo(HttpServletRequest request, HttpServletResponse response,
+    public ModelAndView updateOtherContactInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
                                         @ModelAttribute("editOtherContactInfoForm") ContactInfo contactInfoEntered) {
-        //User currentUser = (User)session.getAttribute("user");
+        User currentUser = (User)session.getAttribute("user");
 
         ModelAndView mav = null;
 
         // update record:
-        contactInfoDAO.updateContactInfoOrAdd(contactInfoEntered, contactInfoEntered.getUserIdFromForm());
+        contactInfoDAO.updateContactInfo(contactInfoEntered);//updateContactInfoOrAdd(contactInfoEntered, contactInfoEntered.getUserIdFromForm());
 
-        User updatedUser = userDAO.getUserById(contactInfoEntered.getUserIdFromForm());
+        User updatedUser = userDAO.getUserById(contactInfoEntered.getUserId());
 
         mav = new ModelAndView("showUser", "user", updatedUser);
+        mav.addObject("currentUser", currentUser);
 
         return mav;
     }

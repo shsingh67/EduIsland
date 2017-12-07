@@ -61,8 +61,8 @@ public class ContactInfo {
     public void setZipCode(String zipCode) { this.zipCode = zipCode; }
 
     // Special:
-    public String getUserIdFromForm() { return userId; }
-    public void setUserIdForForm(String userId) { this.userId = userId; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
     // Other methods:
 

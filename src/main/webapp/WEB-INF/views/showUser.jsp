@@ -9,14 +9,14 @@
 </head>
 <body>
 
-<% User user = (User)session.getAttribute("user"); %>
+<% User currentUser = (User)session.getAttribute("user"); %>
 
 
 
 <%--if a user is logged in, show Course options (Enroll/Edit): --%>
-<% if(user != null)  { %>
+<% if(currentUser != null)  { %>
 
-<% if(user.isAdmin()) { %>
+<% if(currentUser.isAdmin()) { %>
 
     <table>
         <tr>
