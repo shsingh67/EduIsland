@@ -29,7 +29,11 @@
 
         /* Set black background color, white text and some padding */
         footer {
-            background-color: #555;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: royalblue;
             color: white;
             padding: 15px;
         }
@@ -37,10 +41,10 @@
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
-                height: auto;
+                height: 100%;
                 padding: 15px;
             }
-            .row.content {height:auto;}
+            .row.content {height:100%;}
         }
     </style>
 </head>
@@ -95,8 +99,7 @@
             </c:if>
             <c:if test="${user.admin}">
                 <p><a href="/genericForm">Find People</a></p>
-                <p><a href="/updateForm?type=instructor">Add Instructor</a></p>
-                <p><a href="/createUser">Add User</a></p>
+                <p><a href="/createUser">Create New User</a></p>
             </c:if>
         </div>
         <div class="col-sm-8 text-left">
@@ -123,9 +126,9 @@
                 <p>${user.instructorInfo.biography}</p>
                 <h4>Photo:  </h4>
                 <p>${user.instructorInfo.photo}</p>
-                <h4> <a href="/editInstructorInfo">Edit</a> </h4>
+                <h4> <a href="/editInstructorInfo">Edit My Profile</a> </h4>
                 <hr>
-                <p><a href="/myTeachingScedule">My Teaching Schedule</a></p>
+                <h4> <a href="/myTeachingScedule">My Teaching Schedule</a></h4>
             </c:if>
             <%--  Admin Info:  --%>
             <c:if test="${user.admin}">
@@ -136,23 +139,17 @@
                 <p><a href="/showDepartment/${user.adminInfo.departmentAdministers.departmentId}">${user.adminInfo.departmentAdministers.name}</a></p>
                 <hr>
             </c:if>
-            <%--<h3>Test </h3>--%>
-            <%--<p>Lorem ipsum...</p>--%>
 
         </div>
-        <div class="col-sm-2 sidenav">
-            <div class="well">
-                <p>ADS</p>
-            </div>
-            <div class="well">
-                <p>ADS</p>
-            </div>
-        </div>
+        <div class="col-sm-2 sidenav"> </div>
+
     </div>
 </div>
 
+</div>
+
 <footer class="container-fluid text-center">
-    <p>Footer Text</p>
+    <p> Brought to you by Timothy Davis, Sharandeep Singh, Su P. Tun </p>
 </footer>
 
 </body>

@@ -120,11 +120,11 @@
     <c:if test="${not empty sectionsTaught}">
 
         <tr>
-            <th>Course: </th>
-            <th>Section #: </th>
-            <th>Year: </th>
-            <th>Semester: </th>
-            <th>Days: </th>
+            <th>Course </th>
+            <th>Section Number </th>
+            <th>Year </th>
+            <th>Semester </th>
+            <th>Days </th>
         </tr>
 
         <c:forEach items="${sectionsTaught}" var="section" varStatus="status">
