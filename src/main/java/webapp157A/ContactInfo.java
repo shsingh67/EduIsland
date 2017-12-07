@@ -87,7 +87,7 @@ public class ContactInfo {
         if (newContactInfo.zipCode != null && !newContactInfo.zipCode.equals("")) { setZipCode(newContactInfo.getZipCode()); }
     }
 
-    public void setParams(String firstName, String lastName, String emailAddress) {
+    public void setParams(String firstName, String lastName, String emailAddress, String userId) {
         HashMap<String, String> params = new HashMap<String, String>();
         if(firstName.trim().compareTo("") !=0){
             this.firstName = firstName;
@@ -103,6 +103,11 @@ public class ContactInfo {
             this.emailAddress = emailAddress;
             params.put("email_address", emailAddress);
         }
+
+        if(userId.trim().compareTo("") !=0) {
+            params.put("user_ID", userId);
+        }
+
         SearchManager.addSearchParams(params);
     }
 

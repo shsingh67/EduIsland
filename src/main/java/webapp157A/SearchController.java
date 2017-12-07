@@ -79,6 +79,7 @@ public class SearchController {
 
     @RequestMapping(value = "/genericSearch", method = RequestMethod.POST)
     public ModelAndView searchStudent(HttpServletRequest request, HttpServletResponse response,
+                                      @RequestParam(value = "userId", required = false) String userId,
                                       @RequestParam(value = "firstName", required = false) String firstName,
                                       @RequestParam(value = "lastName", required = false) String lastName,
                                       @RequestParam(value = "emailAddress", required = false) String emailAddress) {
@@ -86,7 +87,7 @@ public class SearchController {
         ModelAndView mav = new ModelAndView("genricSearchView");
 
         ContactInfo contactInfo = new ContactInfo();
-        contactInfo.setParams(firstName, lastName, emailAddress);
+        contactInfo.setParams(firstName, lastName, emailAddress, userId);
         String sql = SearchManager.buildCourseQuery("ContactInfo");
         Object[] values = SearchManager.values.toArray(new Object[SearchManager.values.size()]);
         List<ContactInfo> contactInfos = contactInfoDAO.getContactInfo(sql, values);

@@ -8,7 +8,6 @@ import java.util.Map;
 public class SearchManager {
 
     public static HashMap<String, SearchParam> SEARCH_PARAMS;
-
     static {
         SEARCH_PARAMS = new HashMap<String, SearchParam>();
         SEARCH_PARAMS.put("name", new SimpleSearchParam());
@@ -19,6 +18,7 @@ public class SearchManager {
         SEARCH_PARAMS.put("first_name", new SimpleSearchParam());
         SEARCH_PARAMS.put("last_name", new SimpleSearchParam());
         SEARCH_PARAMS.put("email_address", new SimpleSearchParam());
+        SEARCH_PARAMS.put("user_ID", new SimpleSearchParam());
     }
 
     public static HashMap<String, String> params;
