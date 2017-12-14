@@ -10,7 +10,7 @@ public class SectionTaken {
     private String registerStatus;
     private Date registrationDate;
 
-    private Section section;
+//    private Section section; // removed to increase loading speed.
 
     // Getters and Setters:
 
@@ -30,7 +30,7 @@ public class SectionTaken {
     public Date getRegistrationDate() { return registrationDate; }
     public void setRegistrationDate(Date registrationDate) { this.registrationDate = registrationDate; }
 
-    public Section getSection() { return section; }
-    public void setSection(Section section) { this.section = section; }
+//    public Section getSection() { return section; }
+//    public void setSection(Section section) { this.section = section; }
 
 }

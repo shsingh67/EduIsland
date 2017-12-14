@@ -58,6 +58,44 @@ public class SectionController {
         return mav;
     }
 
+    // Edit:
+
+    @RequestMapping(value ="/editSection/{sectionId}", method = RequestMethod.GET)
+    public ModelAndView editSection(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                   @PathVariable("sectionId") String sectionId) {
+
+        User currentUser = (User)session.getAttribute("user");
+
+        Section sectionToEdit = sectionDAO.getSection(sectionId);
+
+        ModelAndView mav = new ModelAndView("editSection"); // name of the JSP file referencing.
+        mav.addObject("editSectionForm", sectionToEdit); // attributeName from JSP form's modelAttribute field.
+        mav.addObject("user", currentUser);
+        mav.addObject("sectionEditing", sectionToEdit);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/updateSectionProcess", method = RequestMethod.POST)
+    public ModelAndView updateSection(HttpServletRequest request, HttpServletResponse response,
+                                     @ModelAttribute("editSectionForm") Section sectionEntered) {
+        // User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        // update record:
+        sectionDAO.updateSection(sectionEntered);
+
+        Section updatedSection = sectionDAO.getSection(sectionEntered.getSectionId());
+
+        mav = new ModelAndView("showSection", "section", updatedSection);
+        //mav.addObject("user", currentUser);
+
+        return mav;
+    }
+
+    // Other:
+
     // View all sections taken (enrolled / taken / dropped):
     @RequestMapping(value ="/mySectionHistory", method = RequestMethod.GET)
     public ModelAndView showMySectionHistory(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
