@@ -1,5 +1,6 @@
 <%@ page import="webapp157A.User" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -11,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
 
-        input[type=text], input[type=password], select {
+        input[type=text], select {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -81,7 +82,7 @@
         header {
             padding: 1em;
             color: white;
-            background-color: cornflowerblue;
+            background-color: steelblue; /*darkslategray;*/
             clear: left;
             text-align: center;
         }
@@ -123,7 +124,7 @@
 
     </style>
 
-    <title> Create New User </title>
+    <title> Edit Course </title>
 
 
 </head>
@@ -163,23 +164,45 @@
 
 <header>
     <h3>
-        Create New User
+        Edit Course
     </h3>
 </header>
 <%--<h2> Search for classes </h2>--%>
 
 <div class="div-form">
-    <form:form id ="regForm" modellAttribute ="createUserForm" action = "adminCreateUser" method = "post">
+    <spring:url value="/updateCourseProcess" var="updateCourseActionUrl" />
+
+    <form:form id=" courseForm" modelAttribute = "editCourseForm" action = "${updateCourseActionUrl}" method = "post">
+
         <div class="container">
-            <label><b>Username</b></label>
-            <input type="text" placeholder="Enter username" name="userId" required>
 
-            <label><b>Initial Password</b></label>
-            <input type="password" placeholder="Enter Initial Password" name="password" required>
+            <label><b>Course ID: </b></label>
+                <%--<input type="text" placeholder="" name="departmentId" value="${departmentEditing.departmentId}" readonly required>--%>
+            <input type="text" placeholder="Enter course ID" name="courseId" value="${courseEditing.courseId}" readonly required>
 
-            <button class="button" type="submit">Create User</button>
+            <label><b>Course name: </b></label>
+                <%--NOTE: "name=" tag-attribute corresponds to field "name" of departmentEditing object passed in (name must match CLASS name!):--%>
+            <input type="text" placeholder="Enter course name" name="name" value="${courseEditing.name}" required>
+
+            <label><b>Units: </b></label>
+            <input type="text" placeholder="Enter units" name="units" value="${courseEditing.units}" required>
+
+            <label><b>Description: </b></label>
+            <input type="text" placeholder="Enter course description" name="description" value="${courseEditing.description}" required>
+
+            <label><b>Department ID: </b></label>
+            <input type="text" placeholder="Enter department ID" name="departmentId" value="${courseEditing.departmentId}" required>
+
+
+            <button class="button" type="submit">Update</button>
         </div>
 
+
+        <table align="bottom">
+            <tr>
+                <td style ="font-style: italic; color: red;">${Error}</td>
+            </tr>
+        </table>
     </form:form>
 </div>
 
@@ -188,4 +211,3 @@
 <%--<p> Brought to you by Timothy Davis, Sharandeep Singh and Su P. Tun </p>--%>
 <%--</footer>--%>
 </html>
-

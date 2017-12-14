@@ -100,6 +100,7 @@
             <c:if test="${user.admin}">
                 <p><a href="/genericForm">Find People</a></p>
                 <p><a href="/createUser">Create New User</a></p>
+                <p><a href="/createCourse">Create New Course</a></p>
             </c:if>
         </div>
         <div class="col-sm-8 text-left">

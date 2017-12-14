@@ -23,6 +23,8 @@ public class CourseController {
     @Autowired
     DepartmentDAO departmentDAO;
 
+    // Show:
+
     @RequestMapping(value ="/showCourse/{courseId}", method = RequestMethod.GET)
     public ModelAndView showCourse(HttpServletRequest request, HttpServletResponse response,
                                         @PathVariable("courseId") String courseId) {
@@ -44,5 +46,58 @@ public class CourseController {
         return mav;
     }
 
+    // Edit:
+
+    @RequestMapping(value ="/editCourse/{courseId}", method = RequestMethod.GET)
+    public ModelAndView editCourse(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                       @PathVariable("courseId") String courseId) {
+
+        User currentUser = (User)session.getAttribute("user");
+
+        Course courseToEdit = courseDAO.getCourse(courseId);
+
+        ModelAndView mav = new ModelAndView("editCourse"); // name of the JSP file referencing.
+        mav.addObject("editCourseForm", courseToEdit); // attributeName from JSP form's modelAttribute field.
+        mav.addObject("user", currentUser);
+        mav.addObject("courseEditing", courseToEdit);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/updateCourseProcess", method = RequestMethod.POST)
+    public ModelAndView updateCourse(HttpServletRequest request, HttpServletResponse response,
+                                         @ModelAttribute("editCourseForm") Course courseEntered) {
+        //User currentUser = (User)session.getAttribute("user");
+
+        ModelAndView mav = null;
+
+        // update record:
+        courseDAO.updateCourse(courseEntered);
+
+        Course updatedCourse = courseDAO.getCourse(courseEntered.getCourseId());
+
+        mav = new ModelAndView("showCourse", "course", updatedCourse);
+
+        return mav;
+    }
+
+    // New:
+
+    @RequestMapping(value = "/createCourse", method = RequestMethod.GET)
+    public ModelAndView showRegister(HttpServletRequest register, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("createCourse");
+        mav.addObject("createCourseForm", new Course());
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/createCourseProcess", method = RequestMethod.POST)
+    public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("createCourseForm") Course course) {
+        courseDAO.createCourse(course);
+
+        Course courseCreated = courseDAO.getCourse(course.getCourseId());
+
+        return new ModelAndView("showCourse", "course", courseCreated);
+    }
 
 }

@@ -165,7 +165,26 @@
 </c:if>
 
 <%-- a link that looks like a button: --%>
+<%--if a user is logged in, show Course options (Enroll/Edit): --%>
+<% if(user != null)  { %>
+
+
+<% if(user.isAdmin()) { %>
+
+<tr>
+    <td> <a href="/editCourse/${course.courseId}"  class="btn btn-default">Edit</a> </td>
+</tr>
+
+<% } // if admin end. %>
+
+<% } // if (user != null) end.%>
+
+
+
+<%-- a link that looks like a button: --%>
 <a href="/showSectionsOfCourse/${course.courseId}" class="btn btn-default"> View Sections </a>
+
+
 
 </body>
 </html>

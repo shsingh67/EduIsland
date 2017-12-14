@@ -26,6 +26,11 @@ public class CourseDAO {
 
     public static final String SEARCH_COURSE_FROM_ID = "select * from course where course_id like ?";
 
+    public static final String UPDATE_COURSE = "update course set name=?, units=?, description=?, " +
+            "department_id=? where course_id=?;";
+
+    public static final String CREATE_COURSE = "insert into course values(?, ?, ?, ?, ?)";
+
     public static final String GET_COURSES_STUDENT_TAKING = "select * " +
             "from course" +
             " where course_id IN (select course_id" +
@@ -67,6 +72,17 @@ public class CourseDAO {
         List<Course> courses = jdbcTemplate.query(GET_COURSE_FROM_ID, new Object[]{courseId}, new CourseMapper());
 
         return courses.size() > 0 ? courses.get(0) : null; // this checks if courses size > greater than 0, then return the course user else return null
+    }
+
+    public void updateCourse(Course course) {
+        jdbcTemplate.update(UPDATE_COURSE, new Object[] {course.getName(),
+                course.getUnits(), course.getDescription(), course.getDepartmentId(),
+                course.getCourseId()});
+    }
+
+    public void createCourse(Course course) {
+        jdbcTemplate.update(CREATE_COURSE, new Object[] {course.getCourseId(), course.getName(), course.getUnits(),
+                course.getDescription(), course.getDepartmentId()});
     }
 
     public List<Course> searchForCourses(Course courseInfoEntered) { //TODO: search for more than one field...
