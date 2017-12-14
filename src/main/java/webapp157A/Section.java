@@ -1,5 +1,7 @@
 package webapp157A;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.sql.Date;
 
 public class Section {
@@ -16,6 +18,10 @@ public class Section {
     private Course course;
     private User instructor;
     private SectionTaughtAtInfo sectionTaughtAtInfo;
+
+    // for on-demand access:
+    @Autowired
+    SectionDAO sectionDAO;
 
     // Getters and Setters:
 
@@ -43,12 +49,33 @@ public class Section {
     public String getInstructorId() { return instructorId; }
     public void setInstructorId(String instructorId) { this.instructorId = instructorId; }
 
-    public Course getCourse() { return course; }
+    public Course getCourse() {
+        // Load only when request access first time:
+        if (course == null) {
+            sectionDAO.setCourseInfo(this);
+        }
+
+        return course;
+    }
     public void setCourse(Course course) { this.course = course; }
 
-    public User getInstructor() { return instructor; }
+    public User getInstructor() {
+        // Load only when request access first time:
+        if (instructor == null) {
+            sectionDAO.setInstructorInfo(this);
+        }
+
+        return instructor;
+    }
     public void setInstructor(User instructor) { this.instructor = instructor; }
 
-    public SectionTaughtAtInfo getSectionTaughtAtInfo() { return sectionTaughtAtInfo; }
+    public SectionTaughtAtInfo getSectionTaughtAtInfo() {
+        // Load only when request access first time:
+        if (sectionTaughtAtInfo == null) {
+            sectionDAO.setSectionTaughtAtInfo(this);
+        }
+
+        return sectionTaughtAtInfo;
+    }
     public void setSectionTaughtAtInfo(SectionTaughtAtInfo sectionTaughtAtInfo) { this.sectionTaughtAtInfo = sectionTaughtAtInfo; }
 }

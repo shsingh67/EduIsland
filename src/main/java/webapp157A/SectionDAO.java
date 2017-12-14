@@ -127,9 +127,10 @@ public class SectionDAO {
             section.setCourseId(rs.getString("course_id"));
             section.setInstructorId(rs.getString("instructor_id"));
 
-            setCourseInfo(section);
-            setInstructorInfo(section);
-            setSectionTaughtAtInfo(section);
+            // TODO: make lazy-set (only load if needed):
+//            setCourseInfo(section);
+//            setInstructorInfo(section);
+//            setSectionTaughtAtInfo(section);
 
             return section;
         }
@@ -164,9 +165,9 @@ public class SectionDAO {
         }
     }
 
-    // private members:
+    // access methods:
 
-    private void setCourseInfo(Section section)
+    public void setCourseInfo(Section section)
     {
         if (section != null) {
             Course course = courseDAO.getCourse(section.getCourseId());
@@ -174,7 +175,7 @@ public class SectionDAO {
         }
     }
 
-    private void setInstructorInfo(Section section)
+    public void setInstructorInfo(Section section)
     {
         if (section != null) {
             User instructor = userDAO.getInstructorWhoTeaches(section.getSectionId());
@@ -182,7 +183,7 @@ public class SectionDAO {
         }
     }
 
-    private void setSectionTaughtAtInfo(Section section)
+    public void setSectionTaughtAtInfo(Section section)
     {
         if (section != null) {
             SectionTaughtAtInfo sectionTaughtAtInfo = getSectionTaughtAtInfo(section.getSectionId());
