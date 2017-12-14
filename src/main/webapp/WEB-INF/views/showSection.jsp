@@ -184,7 +184,7 @@
 
     <% if(user.isAdmin()) { %>
 
-        <a href="/" class="btn btn-default"> Edit </a>
+        <a href="/editSection/${section.sectionId}" class="btn btn-default"> Edit </a>
 
     <% } // if admin end. %>
 

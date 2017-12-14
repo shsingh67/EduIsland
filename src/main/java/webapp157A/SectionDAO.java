@@ -26,6 +26,12 @@ public class SectionDAO {
 
     // SQL statements:
 
+    public static final String CREATE_SECTION = "insert into section values(?, ?, ?, ?, ?, ?, ?, ?)";
+
+    public static final String UPDATE_SECTION = "update section set section_number=?, year=?, semester=?, " +
+            /*"start_date=?, end_date=?," + */ /*skipping dates*/
+            " course_id=?, instructor_id=? where section_id=?;";
+
     public static final String GET_SECTION_FROM_ID = "select * from section where section_id = ?";
 
     public static final String GET_SECTIONS_WITH_COURSE_ID = "select * from section where course_id = ?";
@@ -55,6 +61,19 @@ public class SectionDAO {
     public static final String GET_SECTION_TAUGHT_AT_INFO = "select * from SectionTaughtAt where section_ID = ?";
 
     // Methods:
+
+    public void updateSection(Section section) {
+        jdbcTemplate.update(UPDATE_SECTION, new Object[] {section.getSectionNumber(),
+                section.getYear(), section.getSemester(),
+                /*section.getStartDate(), section.getEndDate(),*/ /* skipping dates */
+                section.getCourseId(), section.getInstructorId(),
+                section.getSectionId()});
+    }
+
+    public void createSection(Section section) {
+        jdbcTemplate.update(CREATE_SECTION, new Object[] {section.getSectionId(), section.getSectionNumber(), section.getYear(),
+                section.getSemester(), section.getStartDate(), section.getEndDate(), section.getCourseId(), section.getInstructorId()});
+    }
 
     public Section getSection(String sectionId) {
         List<Section> sections = jdbcTemplate.query(GET_SECTION_FROM_ID, new Object[]{sectionId}, new SectionMapper());
