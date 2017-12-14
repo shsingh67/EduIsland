@@ -120,8 +120,7 @@
     <c:if test="${not empty sectionsTaken}">
 
         <tr>
-            <th>Course </th>
-            <th>Section Number </th>
+            <th>Section </th>
             <th>Status </th>
             <th>Grade </th>
             <th>Date Enrolled </th>
@@ -129,8 +128,7 @@
 
         <c:forEach items="${sectionsTaken}" var="sectionTaken" varStatus="status">
             <tr>
-                <td> <a href="/showCourse/${sectionTaken.section.courseId}">${sectionTaken.section.courseId.toUpperCase()}</a> </td>
-                <td> <a href="/showSection/${sectionTaken.section.sectionId}">${sectionTaken.section.sectionNumber}</a> </td>
+                <td> <a href="/showSection/${sectionTaken.sectionId}">${sectionTaken.sectionId}</a> </td>
                 <td> ${sectionTaken.registerStatus} </td>
                 <td> ${sectionTaken.grade} </td>
                 <td> ${sectionTaken.registrationDate} </td>

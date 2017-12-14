@@ -163,7 +163,7 @@ public class SectionDAO {
             sectionTaken.setRegisterStatus(rs.getString("register_status"));
             sectionTaken.setRegistrationDate(rs.getDate("register_date"));
 
-            sectionTaken.setSection(getSection(sectionTaken.getSectionId()));
+            // sectionTaken.setSection(getSection(sectionTaken.getSectionId())); // removed to increase loading speed.
 
             return sectionTaken;
         }
