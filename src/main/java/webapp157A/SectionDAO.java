@@ -54,7 +54,7 @@ public class SectionDAO {
 
     public static final String ENROLL_STUDENT = "insert into StudentTakes values(?, ?, ?, ?, ?)";
 
-    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ?;";
+    public static final String GET_STUDENT_TAKES_LIST = "select * from StudentTakes where student_ID = ? order by register_date DESC;"; // order descending.
     public static final String GET_STUDENT_TAKES_LIST_WHERE_REG_STATUS = "select * from StudentTakes where student_ID = ? AND register_status = ?;";
 
 
