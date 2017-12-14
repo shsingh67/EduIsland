@@ -134,7 +134,7 @@
 
     </style>
 
-    <title> Search for Courses</title>
+    <title> Search for Users</title>
 
 
 </head>
